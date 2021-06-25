@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">SOM-POS</string>
+
+    <!-- 네이버 앱 키 -->
+    <string name="naver_client_id">jaPa0Lkt1HwceOXRd8fQ</string>
+    <string name="naver_client_secret">OxGOqW8dfl</string>
+    <string name="naver_client_name">SOM</string>
+
+    <!--카카오 앱 키 -->
+    <string name="kakao_app_key">807b94e191e23dfd5f19907be7eec2ae</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>
