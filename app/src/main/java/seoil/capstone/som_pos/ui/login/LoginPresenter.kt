@@ -6,12 +6,12 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
-import seoil.capstone.som_pos.MainActivity
+import seoil.capstone.som_pos.main.MainActivity
 import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.api.LoginApi
 import seoil.capstone.som_pos.data.network.model.LoginDTO
 
-class LoginPresenter : LoginContract.Presenter{
+class LoginPresenter : LoginContract.Presenter {
 
     private val TAG = "LoginPresenter"
 
