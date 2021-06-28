@@ -9,9 +9,8 @@ import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.ui.menu.MenuManagementActivity
 import seoil.capstone.som_pos.ui.sell.SellManagementActivity
 
-class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var mPresenter: MainPresenter? = null
     private var mBtnMenu : Button?= null
     private var mBtnSell : Button?= null
 
@@ -20,33 +19,10 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mPresenter = MainPresenter()
-        mPresenter!!.setView(this)
-        mPresenter!!.createInteractor()
-
         initView()
 
         initListener()
 
-    }
-
-    override fun onDestroy() {
-        mPresenter!!.releaseInteractor()
-        mPresenter!!.releaseView()
-        mPresenter = null
-        super.onDestroy()
-    }
-
-    override fun showProgress() {
-        TODO("Not yet implemented")
-    }
-
-    override fun hideProgress() {
-        TODO("Not yet implemented")
-    }
-
-    override fun showDialog(msg: String?) {
-        TODO("Not yet implemented")
     }
 
     private fun initView() {

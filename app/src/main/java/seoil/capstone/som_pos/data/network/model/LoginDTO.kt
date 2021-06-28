@@ -12,9 +12,7 @@ class LoginDTO {
     /////////
     class LoginReq(
         @field:Expose @field:SerializedName("id") var id: String,
-        @field:Expose @field:SerializedName(
-            "pwd"
-        ) var pwd: String
+        @field:Expose @field:SerializedName("pwd") var pwd: String
     )
 
     /////////
