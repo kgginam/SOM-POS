@@ -18,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.network.api.LoginApi
 import seoil.capstone.som_pos.data.network.api.MenuApi
+import seoil.capstone.som_pos.data.network.api.ShopApi
 import seoil.capstone.som_pos.data.network.api.StockApi
 import seoil.capstone.som_pos.data.network.model.*
 
@@ -32,6 +33,7 @@ class AppApiHelper {
     private var mLoginApi: LoginApi
     private var mMenuApi: MenuApi
     private var mStockApi: StockApi
+    private var mShopApi: ShopApi
 
     init {
 
@@ -44,6 +46,7 @@ class AppApiHelper {
         mLoginApi = LoginApi(retrofit)
         mMenuApi = MenuApi(retrofit)
         mStockApi = StockApi(retrofit)
+        mShopApi = ShopApi(retrofit)
     }
 
     companion object {
@@ -170,6 +173,7 @@ class AppApiHelper {
 
                                     // 성별이 알 수 없음 일 때
                                     if (gender == "U") {
+
                                         gender = "M"
                                     }
                                     onFinishApiListener.onSuccess(
@@ -261,5 +265,9 @@ class AppApiHelper {
 
     fun deleteStock(shopId: String, stockCode: Int, stockName: String, onFinishApiListener: OnFinishApiListener<Status>) {
         mStockApi.deleteStock(shopId, stockCode, stockName, onFinishApiListener)
+    }
+
+    fun getShopInformation(shopId: String, onFinishApiListener: OnFinishApiListener<ShopRes>) {
+        mShopApi.getShopInformation(shopId, onFinishApiListener)
     }
 }

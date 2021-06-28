@@ -13,7 +13,7 @@ class LoginInteractor : LoginContract.Interactor {
         req: LoginDTO.LoginReq?,
         onFinishApiListener: OnFinishApiListener<LoginDTO.LoginRes>?
     ) {
-        AppApiHelper.getInstance().serverLogin(req, onFinishApiListener!!)
+        AppApiHelper.getInstance().serverLogin(req!!, onFinishApiListener!!)
     }
 
     override fun kakaoLogin(
