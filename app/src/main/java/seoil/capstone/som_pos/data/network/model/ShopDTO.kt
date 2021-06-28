@@ -8,6 +8,13 @@ data class ShopRes (
     @SerializedName("status")
     @Expose
     val status : Int?,
+    @SerializedName("results")
+    @Expose
+    val results : List<ShopModel>
+)
+
+data class ShopModel (
+
     @SerializedName("shopName")
     @Expose
     val shopName : String?,
