@@ -1,11 +1,8 @@
 package seoil.capstone.som_pos.ui.sell
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import seoil.capstone.som_pos.R
 
 class SellManagementActivity :AppCompatActivity(), SellManagementContract.View{
