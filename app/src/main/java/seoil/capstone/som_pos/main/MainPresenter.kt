@@ -32,9 +32,11 @@ class MainPresenter : MainContract.Presenter {
             object : OnFinishApiListener<ShopRes> {
                 override fun onSuccess(t: ShopRes) {
 
+                    Log.d("MainPresenter", t.toString())
                     if (t.status == ShopApi.SUCCESS) {
 
-                        mView!!.setGlobalData(t.shopCategory.toString())
+                        mView!!.setGlobalData(t.results[0].shopCategory.toString())
+                        Log.d("MainPresenter", t.results[0].shopCategory.toString())
                     }
                 }
 
