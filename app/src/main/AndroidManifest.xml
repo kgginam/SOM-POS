@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".main.MainActivity">
         </activity>
+        <activity android:name=".ui.menu.MenuManagementActivity"/>
+        <activity android:name=".ui.sell.SellManagementActivity"/>
     </application>
 
 </manifest>

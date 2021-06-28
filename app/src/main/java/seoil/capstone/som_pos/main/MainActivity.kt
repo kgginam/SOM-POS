@@ -1,26 +1,19 @@
 package seoil.capstone.som_pos.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import com.google.android.material.tabs.TabLayout
+import android.view.View
+import android.widget.Button
 import seoil.capstone.som_pos.R
-import seoil.capstone.som_pos.ui.sell.SellManagementFragment
-import seoil.capstone.som_pos.ui.stock.StockManagementFragment
+import seoil.capstone.som_pos.ui.menu.MenuManagementActivity
+import seoil.capstone.som_pos.ui.sell.SellManagementActivity
 
-class MainActivity : AppCompatActivity(), MainContract.View {
-
-    companion object {
-
-        private const val SELECTED_STOCK : Int = 0
-        private const val SELECTED_SELL : Int = 1
-
-        private const val mFrameLayoutId : Int = R.id.frameLayoutMain
-    }
+class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListener {
 
     private var mPresenter: MainPresenter? = null
-    private var mTabLayout: TabLayout?= null
-    private var mSelectedIndex : Int?= null
+    private var mBtnMenu : Button?= null
+    private var mBtnSell : Button?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,15 +27,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         initView()
 
         initListener()
-        mTabLayout!!.addTab(mTabLayout!!.newTab().setText("재고 관리"))
-        mTabLayout!!.addTab(mTabLayout!!.newTab().setText("판매"))
 
-        mSelectedIndex = SELECTED_STOCK
-
-        supportFragmentManager
-                .beginTransaction()
-                .add(mFrameLayoutId, StockManagementFragment())
-                .commit()
     }
 
     override fun onDestroy() {
@@ -66,50 +51,34 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun initView() {
 
-        mTabLayout = findViewById(R.id.tabLayoutMain)
+        mBtnMenu = findViewById(R.id.btnMainMenuManagement)
+        mBtnSell = findViewById(R.id.btnMainSellManagement)
     }
 
     private fun initListener() {
 
-        mTabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabReselected(tab: TabLayout.Tab?) {
 
-            }
+        mBtnMenu!!.setOnClickListener(this)
+        mBtnSell!!.setOnClickListener(this)
+    }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
+    override fun onClick(v: View?) {
+        val id = v!!.id
+        var intent : Intent?= null
 
-            }
+        if (id == R.id.btnMainMenuManagement) {
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                val position : Int = tab!!.position
+            intent = Intent(this, MenuManagementActivity::class.java)
+        }
 
-                var selectedFragment : Fragment?= null
+        if (id == R.id.btnMainSellManagement) {
 
-                if (position == SELECTED_STOCK) {
+            intent = Intent(this, SellManagementActivity::class.java)
+        }
 
-                    if (mSelectedIndex != SELECTED_STOCK) {
+        if (intent != null) {
 
-                        mSelectedIndex = SELECTED_STOCK
-                        selectedFragment = StockManagementFragment()
-                    }
-                } else if (position == SELECTED_SELL) {
-
-                    if (mSelectedIndex != SELECTED_SELL) {
-
-                        mSelectedIndex = SELECTED_SELL
-                        selectedFragment = SellManagementFragment()
-                    }
-                }
-
-                if (selectedFragment != null) {
-
-                    supportFragmentManager
-                            .beginTransaction()
-                            .replace(mFrameLayoutId, selectedFragment)
-                            .commit()
-                }
-            }
-
-        })
+            startActivity(intent)
+        }
     }
 }
