@@ -13,6 +13,8 @@ class GlobalApplication : Application() {
         private var userId // 사용자 아이디
                 : String? = null
 
+        private var category
+                : String? = null
     }
 
     override fun onCreate() {
@@ -45,5 +47,15 @@ class GlobalApplication : Application() {
     fun getUserId() : String {
 
         return userId.toString()
+    }
+
+    fun setCategory(str: String) {
+
+        category = str
+    }
+
+    fun getCategory() : String {
+
+        return category.toString()
     }
 }
