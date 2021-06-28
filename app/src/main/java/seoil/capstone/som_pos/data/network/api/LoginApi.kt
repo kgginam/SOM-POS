@@ -9,7 +9,9 @@ import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.model.LoginDTO
 import seoil.capstone.som_pos.data.network.model.retrofit.User
 
-class LoginApi {
+class LoginApi(retrofit: Retrofit) {
+
+    private val mUserData = retrofit.create(User::class.java)
 
     companion object {
 
@@ -21,8 +23,8 @@ class LoginApi {
 
         const val LOGIN_FAIL_ID : Int = 3
         const val LOGIN_FAIL_PWD : Int = 4
-        const val NEW_USER : Int = 5 // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
-
+        const val LOGIN_FAIL_NOT_MANAGER: Int = 5
+        const val NEW_USER : Int = 6 // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
 
         const val ID_DUPLICATE : Int = 3
 
@@ -33,25 +35,12 @@ class LoginApi {
         const val ERROR_INVALID_AUTH : Int = 4
     }
 
-    private var mUserData: User? = null
-
-    init {
-
-    }
-
-    constructor(retrofit: Retrofit) : this() {
-
-        mUserData = retrofit.create(User::class.java)
-    }
-
-    constructor()
-
-
     // 로그인 요청
-    fun login(req: LoginDTO.LoginReq?, onFinishApiListener: OnFinishApiListener<LoginDTO.LoginRes>) {
-        val call: Call<LoginDTO.LoginRes?>? = mUserData?.getLoginData(req)
-        call?.enqueue(object : Callback<LoginDTO.LoginRes?> {
-            override fun onResponse(call: Call<LoginDTO.LoginRes?>, response: Response<LoginDTO.LoginRes?>) {
+    // TODO: 대부분 Nullable로 되어있는데 정말 필요한 경우가 아니면 뺄 것
+    fun login(req: LoginDTO.LoginReq, onFinishApiListener: OnFinishApiListener<LoginDTO.LoginRes>) {
+        val call: Call<LoginDTO.LoginRes> = mUserData.login(req)
+        call.enqueue(object : Callback<LoginDTO.LoginRes> {
+            override fun onResponse(call: Call<LoginDTO.LoginRes>, response: Response<LoginDTO.LoginRes>) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
                     return
@@ -61,6 +50,25 @@ class LoginApi {
             }
 
             override fun onFailure(call: Call<LoginDTO.LoginRes?>, t: Throwable) {
+                onFinishApiListener.onFailure(t)
+            }
+        })
+    }
+
+    // POS기 로그인
+    fun posLogin(req: LoginDTO.LoginReq, onFinishApiListener: OnFinishApiListener<LoginDTO.LoginRes>) {
+        val call: Call<LoginDTO.LoginRes> = mUserData.posLogin(req)
+        call.enqueue(object : Callback<LoginDTO.LoginRes> {
+            override fun onResponse(call: Call<LoginDTO.LoginRes>, response: Response<LoginDTO.LoginRes>) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+                    return
+                }
+
+                response.body()!!.let { onFinishApiListener.onSuccess(it) }
+            }
+
+            override fun onFailure(call: Call<LoginDTO.LoginRes>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
         })

@@ -17,24 +17,33 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.network.api.LoginApi
-import seoil.capstone.som_pos.data.network.model.LoginDTO
+import seoil.capstone.som_pos.data.network.api.MenuApi
+import seoil.capstone.som_pos.data.network.api.StockApi
+import seoil.capstone.som_pos.data.network.model.*
 
 
 // api 관리자
 // 싱글턴 클래스
+// TODO: 코틀린은 object라는 예약어로 싱글턴 클래스를 만들 수 있으므로 참고(생성자 사용 불가, 전역으로 꺼내면 됨)
 class AppApiHelper {
 
-    val BASE_URL = "https://leebera.name/api/"
+    private val baseUrl = "https://leebera.name/api/"
 
-    private var mLoginApi: LoginApi? = null
+    private var mLoginApi: LoginApi
+    private var mMenuApi: MenuApi
+    private var mStockApi: StockApi
 
     init {
 
-        val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+        val retrofit: Retrofit = Retrofit
+                .Builder()
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+
         mLoginApi = LoginApi(retrofit)
+        mMenuApi = MenuApi(retrofit)
+        mStockApi = StockApi(retrofit)
     }
 
     companion object {
@@ -61,24 +70,26 @@ class AppApiHelper {
             return mAppApiHelper
         }
 
-    fun check404Error(
-            response: Response<LoginDTO.LoginRes?>,
-            onFinishApiListener:  OnFinishApiListener<LoginDTO.LoginRes>
-    ): Boolean {
+    // TODO: *는 모든 타입을 가리키는 것, Any는 Object를 의미 - 따라서 *를 넣어야 자바에서 사용하던 것과 동일하게 문제없이 작동
+    fun check404Error(response: Response<*>, onFinishApiListener: OnFinishApiListener<*>): Boolean {
         if (response.code() == 404) {
-
             onFinishApiListener.onFailure(Throwable("404 Error(server offline or not exist page)"))
             return true
         }
+
         return false
     }
 
     // 서버 로그인 요청
     fun serverLogin(
-        req: LoginDTO.LoginReq?,
+        req: LoginDTO.LoginReq,
         onFinishApiListener: OnFinishApiListener<LoginDTO.LoginRes>
     ) {
-        mLoginApi?.login(req, onFinishApiListener)
+        mLoginApi!!.login(req, onFinishApiListener)
+    }
+
+    fun posLogin(req: LoginDTO.LoginReq, onFinishApiListener: OnFinishApiListener<LoginDTO.LoginRes>) {
+        mLoginApi!!.posLogin(req, onFinishApiListener)
     }
 
     // 카카오 간편 로그인 요청
@@ -193,5 +204,62 @@ class AppApiHelper {
 
         // OAuth로그인 핸들러 넘겨 수행
         oAuthLogin.startOauthLoginActivity(context as Activity?, oAuthLoginHandler)
+    }
+
+    fun getMenuInfo(shopId: String, onFinishApiListener: OnFinishApiListener<MenuRes>) {
+        mMenuApi.getMenuInfo(shopId, onFinishApiListener)
+    }
+
+    fun insertMenu(shopId: String, req: MenuModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.insertMenu(shopId, req, onFinishApiListener)
+    }
+
+    fun updateMenu(shopId: String, menuName: String, menuNewName: String,
+                   menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.updateMenu(shopId, menuName, menuNewName, menuPrice, menuIngredients, onFinishApiListener)
+    }
+
+    fun updateMenuName(shopId: String, menuName: String, menuNewName: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.updateMenuName(shopId, menuName, menuNewName, onFinishApiListener)
+    }
+
+    fun updateMenuPrice(shopId: String, menuName: String, menuPrice: Int, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.updateMenuPrice(shopId, menuName, menuPrice, onFinishApiListener)
+    }
+
+    fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.updateMenuIngredients(shopId, menuName, menuIngredients, onFinishApiListener)
+    }
+
+    fun deleteAllMenu(shopId: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.deleteAllMenu(shopId, onFinishApiListener)
+    }
+
+    fun deleteMenu(shopId: String, menuName: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.deleteMenu(shopId, menuName, onFinishApiListener)
+    }
+
+    fun getStock(shopId: String, onFinishApiListener: OnFinishApiListener<StockRes>) {
+        mStockApi.getStock(shopId, onFinishApiListener)
+    }
+
+    fun insertStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        mStockApi.insertStock(req, onFinishApiListener)
+    }
+
+    fun updateStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        mStockApi.updateStock(req, onFinishApiListener)
+    }
+
+    fun updateStockAmount(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        mStockApi.updateStockAmount(req, onFinishApiListener)
+    }
+
+    fun updateStockPrice(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        mStockApi.updateStockPrice(req, onFinishApiListener)
+    }
+
+    fun deleteStock(shopId: String, stockCode: Int, stockName: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mStockApi.deleteStock(shopId, stockCode, stockName, onFinishApiListener)
     }
 }
