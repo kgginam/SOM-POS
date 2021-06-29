@@ -267,7 +267,8 @@ class AppApiHelper {
         mStockApi.deleteStock(shopId, stockCode, stockName, onFinishApiListener)
     }
 
-    fun getShopInformation(shopId: String, onFinishApiListener: OnFinishApiListener<ShopRes>) {
-        mShopApi.getShopInformation(shopId, onFinishApiListener)
+    //매장 카테고리 요청
+    fun getShopCategory(shopId: String, onFinishApiListener: OnFinishApiListener<ShopRes>) {
+        mShopApi.getShopCategory(shopId, onFinishApiListener)
     }
 }

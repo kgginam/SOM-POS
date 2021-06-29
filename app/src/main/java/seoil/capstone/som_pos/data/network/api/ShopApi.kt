@@ -20,23 +20,25 @@ class ShopApi(retrofit: Retrofit) {
         const val ERROR_NONE_DATE = 3
     }
 
-    // 매장 정보 요청
-    fun getShopInformation(shopId: String?, onFinishApiListener: OnFinishApiListener<ShopRes>) {
-        val call: Call<ShopRes> = mShopInfo.getShopInformation(shopId)!!
+    //매장 카테고리요청
+    fun getShopCategory(shopId : String, onFinishApiListener: OnFinishApiListener<ShopRes>) {
+
+        val call : Call<ShopRes> = mShopInfo.getShopCategory(shopId)
         call.enqueue(object : Callback<ShopRes> {
-            override fun onResponse(
-                call: Call<ShopRes>,
-                response: Response<ShopRes>
-            ) {
+            override fun onFailure(call: Call<ShopRes>, t: Throwable) {
+                onFinishApiListener.onFailure(t)
+            }
+
+            override fun onResponse(call: Call<ShopRes>, response: Response<ShopRes>) {
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
                     return
                 }
                 onFinishApiListener.onSuccess(response.body()!!)
             }
 
-            override fun onFailure(call: Call<ShopRes>, t: Throwable) {
-                onFinishApiListener.onFailure(t)
-            }
+
+
         })
     }
 }
