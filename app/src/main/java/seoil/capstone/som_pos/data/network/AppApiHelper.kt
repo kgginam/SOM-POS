@@ -155,10 +155,10 @@ class AppApiHelper {
             , res.getString(R.string.naver_client_name)
         )
         @SuppressLint("HandlerLeak") val oAuthLoginHandler: OAuthLoginHandler =
-            object : OAuthLoginHandler() {
+            object: OAuthLoginHandler() {
                 override fun run(success: Boolean) {
                     if (success) {
-                        val getDataThread: Thread = object : Thread() {
+                        val getDataThread: Thread = object: Thread() {
                             override fun run() {
                                 val accessToken = oAuthLogin.getAccessToken(context)
                                 val naverLoginData = oAuthLogin.requestApi(

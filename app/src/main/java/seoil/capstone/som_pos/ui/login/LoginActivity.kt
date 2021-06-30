@@ -16,7 +16,7 @@ import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.network.api.LoginApi
 import seoil.capstone.som_pos.util.Utility
 
-class LoginActivity : AppCompatActivity(), LoginContract.View, View.OnClickListener, TextView.OnEditorActionListener{
+class LoginActivity: AppCompatActivity(), LoginContract.View, View.OnClickListener, TextView.OnEditorActionListener{
 
 
     private var mPresenter: LoginPresenter? = null

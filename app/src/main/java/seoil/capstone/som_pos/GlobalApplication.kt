@@ -3,18 +3,18 @@ package seoil.capstone.som_pos
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
 
-class GlobalApplication : Application() {
+class GlobalApplication: Application() {
 
     companion object {
 
         // 사용자 정보 getter setter
-        private var loginPlatform // 사용자 로그인 플랫폼(null : 일반, naver, kakao)
-                : String? = null
+        private var loginPlatform // 사용자 로그인 플랫폼(null: 일반, naver, kakao)
+               : String? = null
         private var userId // 사용자 아이디
-                : String? = null
+               : String? = null
 
         private var category
-                : String? = null
+               : String? = null
     }
 
     override fun onCreate() {
@@ -29,12 +29,12 @@ class GlobalApplication : Application() {
         userId = null
     }
 
-    fun setLoginPlatform(str : String) {
+    fun setLoginPlatform(str: String) {
 
         loginPlatform = str;
     }
 
-    fun getLoginPlatform() : String {
+    fun getLoginPlatform(): String {
 
         return loginPlatform.toString();
     }
@@ -44,7 +44,7 @@ class GlobalApplication : Application() {
         userId = str;
     }
 
-    fun getUserId() : String {
+    fun getUserId(): String {
 
         return userId.toString()
     }
@@ -54,7 +54,7 @@ class GlobalApplication : Application() {
         category = str
     }
 
-    fun getCategory() : String {
+    fun getCategory(): String {
 
         return category.toString()
     }

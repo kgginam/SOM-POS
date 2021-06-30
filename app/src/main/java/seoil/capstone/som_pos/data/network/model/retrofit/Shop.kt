@@ -11,5 +11,5 @@ interface Shop {
     @GET("shop/{shopId}/category")
     fun getShopCategory(
         @Path("shopId") shopId: String?
-    ) : Call<ShopRes>
+    ): Call<ShopRes>
 }

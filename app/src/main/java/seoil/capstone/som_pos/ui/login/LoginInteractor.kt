@@ -7,7 +7,7 @@ import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.model.LoginDTO
 
 // 로그인 모델
-class LoginInteractor : LoginContract.Interactor {
+class LoginInteractor: LoginContract.Interactor {
 
     override fun serverLogin(
         req: LoginDTO.LoginReq?,

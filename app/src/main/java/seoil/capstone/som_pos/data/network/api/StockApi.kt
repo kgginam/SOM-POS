@@ -23,7 +23,7 @@ class StockApi(retrofit: Retrofit) {
 
     fun getStock(shopId: String, onFinishApiListener: OnFinishApiListener<StockRes>) {
         val call: Call<StockRes> = mStockData.getStock(shopId)
-        call.enqueue(object : Callback<StockRes> {
+        call.enqueue(object: Callback<StockRes> {
             override fun onFailure(call: Call<StockRes>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -40,7 +40,7 @@ class StockApi(retrofit: Retrofit) {
 
     fun insertStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mStockData.insertStock(req)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -57,7 +57,7 @@ class StockApi(retrofit: Retrofit) {
 
     fun updateStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mStockData.updateStock(req)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -74,7 +74,7 @@ class StockApi(retrofit: Retrofit) {
 
     fun updateStockAmount(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mStockData.updateStockAmount(req)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -91,7 +91,7 @@ class StockApi(retrofit: Retrofit) {
 
     fun updateStockPrice(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mStockData.updateStockPrice(req)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -108,7 +108,7 @@ class StockApi(retrofit: Retrofit) {
 
     fun deleteStock(shopId: String, stockCode: Int, stockName: String, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mStockData.deleteStock(shopId, stockCode, stockName)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
