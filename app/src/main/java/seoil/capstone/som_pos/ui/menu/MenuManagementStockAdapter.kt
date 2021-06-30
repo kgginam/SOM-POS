@@ -83,27 +83,27 @@ class MenuManagementStockAdapter(
                         builder.setView(view)
                         val btnSubmit = view.findViewById<Button>(R.id.btnMenuSubitDialog)
                         val editTextName = view.findViewById<TextView>(R.id.editTextMenuNameDialog)
-                        val editTextPrice = view.findViewById<EditText>(R.id.editTextMenuPriceDialog)
+                        val editTextAmount = view.findViewById<EditText>(R.id.editTextMenuPriceDialog)
                         editTextName.text = mStockList!![adapterPosition].stockName
                         val string: String = mStockList!![adapterPosition].stockAmount.toString()
-                        editTextPrice.text = Editable.Factory.getInstance().newEditable(string)
+                        editTextAmount.text = Editable.Factory.getInstance().newEditable(string)
                         mAlertDialog = builder.create()
                         mAlertDialog!!.show()
                         btnSubmit.setOnClickListener {
-                            val amount = editTextPrice.text.toString()
+                            val amount = editTextAmount.text.toString()
 
                             if (!mPresenter.isNumeric(amount)) {
 
-                                editTextPrice.error = "숫자만 입력해주세요"
-                                editTextPrice.requestFocus()
+                                editTextAmount.error = "숫자만 입력해주세요"
+                                editTextAmount.requestFocus()
                             } else {
 
                                 mPresenter.updateStock(
                                         StockModel(
                                                 mStockList!![adapterPosition].stockCode,
                                                 mShopId,
-                                                mStockList!![adapterPosition].stockName,
-                                                mStockList!![adapterPosition].stockAmount,
+                                                editTextName.text.toString(),
+                                                editTextAmount.text.toString().toInt(),
                                                 null
                                         )
                                 )

@@ -2,10 +2,7 @@ package seoil.capstone.som_pos.ui.menu
 
 import seoil.capstone.som_pos.base.BaseContract
 import seoil.capstone.som_pos.data.network.OnFinishApiListener
-import seoil.capstone.som_pos.data.network.model.MenuRes
-import seoil.capstone.som_pos.data.network.model.Status
-import seoil.capstone.som_pos.data.network.model.StockModel
-import seoil.capstone.som_pos.data.network.model.StockRes
+import seoil.capstone.som_pos.data.network.model.*
 
 interface MenuManagementContract {
 
@@ -13,6 +10,8 @@ interface MenuManagementContract {
 
         fun setMenuInfo(menuInfo: ArrayList<MenuManagementActivity.MenuData>)
         fun setStock(stockData: ArrayList<MenuManagementActivity.StockData>)
+        fun initMenu()
+        fun initStock()
     }
 
     interface Presenter: BaseContract.Presenter<View> {
@@ -28,5 +27,7 @@ interface MenuManagementContract {
                        menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>)
         fun deleteStock(shopId: String, stockCode: Int, stockName: String, onFinishApiListener: OnFinishApiListener<Status>)
         fun updateStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>)
+        fun insertStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>)
+        fun insertMenu(shopId: String, req: MenuModel, onFinishApiListener: OnFinishApiListener<Status>)
     }
 }
