@@ -19,14 +19,14 @@ class MenuApi(retrofit: Retrofit) {
     private val mMenuData = retrofit.create(Menu::class.java)
 
     companion object {
-        const val SUCCESS : Int = 0
-        const val ERROR : Int = 1
-        const val ERROR_UNDEFINED_VALUE : Int = 2
+        const val SUCCESS: Int = 0
+        const val ERROR: Int = 1
+        const val ERROR_UNDEFINED_VALUE: Int = 2
     }
 
     fun getMenuInfo(shopId: String, onFinishApiListener: OnFinishApiListener<MenuRes>) {
         val call: Call<MenuRes> = mMenuData.getMenuInfo(shopId)
-        call.enqueue(object : Callback<MenuRes> {
+        call.enqueue(object: Callback<MenuRes> {
             override fun onFailure(call: Call<MenuRes>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -43,7 +43,7 @@ class MenuApi(retrofit: Retrofit) {
 
     fun insertMenu(shopId: String, req: MenuModel, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mMenuData.insertMenu(shopId, req)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -61,7 +61,7 @@ class MenuApi(retrofit: Retrofit) {
     fun updateMenu(shopId: String, menuName: String, menuNewName: String,
                    menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mMenuData.updateMenu(shopId, menuName, menuNewName, menuPrice, menuIngredients)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -78,7 +78,7 @@ class MenuApi(retrofit: Retrofit) {
 
     fun updateMenuName(shopId: String, menuName: String, menuNewName: String, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mMenuData.updateMenuName(shopId, menuName, menuNewName)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -95,7 +95,7 @@ class MenuApi(retrofit: Retrofit) {
 
     fun updateMenuPrice(shopId: String, menuName: String, menuPrice: Int, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mMenuData.updateMenuPrice(shopId, menuName, menuPrice)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -112,7 +112,7 @@ class MenuApi(retrofit: Retrofit) {
 
     fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mMenuData.updateMenuIngredients(shopId, menuName, menuIngredients)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -129,7 +129,7 @@ class MenuApi(retrofit: Retrofit) {
 
     fun deleteAllMenu(shopId: String, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mMenuData.deleteAllMenu(shopId)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }
@@ -146,7 +146,7 @@ class MenuApi(retrofit: Retrofit) {
 
     fun deleteMenu(shopId: String, menuName: String, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mMenuData.deleteMenu(shopId, menuName)
-        call.enqueue(object : Callback<Status> {
+        call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }

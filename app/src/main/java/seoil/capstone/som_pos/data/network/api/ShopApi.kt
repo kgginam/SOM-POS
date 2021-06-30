@@ -11,7 +11,7 @@ import seoil.capstone.som_pos.data.network.model.retrofit.Shop
 
 class ShopApi(retrofit: Retrofit) {
 
-    private val mShopInfo : Shop = retrofit.create(Shop::class.java)
+    private val mShopInfo: Shop = retrofit.create(Shop::class.java)
 
     companion object {
         const val SUCCESS = 0
@@ -21,10 +21,10 @@ class ShopApi(retrofit: Retrofit) {
     }
 
     //매장 카테고리요청
-    fun getShopCategory(shopId : String, onFinishApiListener: OnFinishApiListener<ShopRes>) {
+    fun getShopCategory(shopId: String, onFinishApiListener: OnFinishApiListener<ShopRes>) {
 
-        val call : Call<ShopRes> = mShopInfo.getShopCategory(shopId)
-        call.enqueue(object : Callback<ShopRes> {
+        val call: Call<ShopRes> = mShopInfo.getShopCategory(shopId)
+        call.enqueue(object: Callback<ShopRes> {
             override fun onFailure(call: Call<ShopRes>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
             }

@@ -17,13 +17,13 @@ import seoil.capstone.som_pos.ui.menu.MenuManagementActivity
 import seoil.capstone.som_pos.ui.sell.SellManagementActivity
 import seoil.capstone.som_pos.util.Utility
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.View {
+class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View {
 
-    private var mBtnMenu : Button?= null
-    private var mBtnSell : Button?= null
-    private var mPresenter : MainPresenter?= null
-    private var isEnd : Boolean?= false
-    private var mDialog : Dialog?= null
+    private var mBtnMenu: Button?= null
+    private var mBtnSell: Button?= null
+    private var mPresenter: MainPresenter?= null
+    private var isEnd: Boolean?= false
+    private var mDialog: Dialog?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.Vie
         mPresenter!!.createInteractor()
         mPresenter!!.setView(this)
 
-        val app : GlobalApplication = applicationContext as GlobalApplication
+        val app: GlobalApplication = applicationContext as GlobalApplication
         mPresenter!!.getShopInformation(app.getUserId())
 
     }
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.Vie
 
     override fun onClick(v: View?) {
         val id = v!!.id
-        var intent : Intent?= null
+        var intent: Intent?= null
 
         if(!isEnd!!) {
 
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.Vie
     }
 
     override fun setGlobalData(category: String) {
-        val app : GlobalApplication = applicationContext as GlobalApplication
+        val app: GlobalApplication = applicationContext as GlobalApplication
         app.setCategory(category)
         isEnd = true
     }
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.Vie
 
     override fun showDialog(msg: String?) {
 
-        val onClickListener : DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
+        val onClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
             if ( mDialog != null) {
 
                 mDialog = null

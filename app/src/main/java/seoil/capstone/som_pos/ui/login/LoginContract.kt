@@ -27,7 +27,7 @@ interface LoginContract {
         )
     }
 
-    interface View : BaseContract.View {
+    interface View: BaseContract.View {
         fun loginFail(errorCode: Int)
         fun toMain(intent: Intent?)
         fun toRegit(intent: Intent?)
@@ -35,7 +35,7 @@ interface LoginContract {
         fun setUserData(userID: String?, userCode: String?)
     }
 
-    interface Presenter : BaseContract.Presenter<View?> {
+    interface Presenter: BaseContract.Presenter<View?> {
         fun serverLogin(
             id: String?,
             pwd: String?,
