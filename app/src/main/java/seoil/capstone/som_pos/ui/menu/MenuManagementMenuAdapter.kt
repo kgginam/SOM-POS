@@ -99,7 +99,7 @@ class MenuManagementMenuAdapter(
                                 mPresenter.updateMenu(mShopId,
                                         mMenuList!![adapterPosition].menuName,
                                         editTextName.text.toString(),
-                                        mMenuList!![adapterPosition].menuPrice,
+                                        editTextPrice.text.toString().toInt(),
                                         mMenuList!![adapterPosition].menuIngredients
                                 )
                                 notifyItemChanged(adapterPosition)

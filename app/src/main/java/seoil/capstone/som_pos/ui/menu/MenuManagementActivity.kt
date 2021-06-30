@@ -42,6 +42,7 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
 
         mShopId = mApp!!.getUserId()
 
+        initCoroutine()
 
         mRecyclerView!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -72,6 +73,14 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
 
     override fun setStock(stockData: ArrayList<StockData>) {
         mStockData = stockData
+    }
+
+    override fun initMenu() {
+        mPresenter!!.getMenuInfo(mShopId!!)
+    }
+
+    override fun initStock() {
+        mPresenter!!.getStock(mShopId!!)
     }
 
     override fun showProgress() {

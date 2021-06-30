@@ -4,10 +4,7 @@ import android.util.Log
 import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.api.MenuApi
 import seoil.capstone.som_pos.data.network.api.StockApi
-import seoil.capstone.som_pos.data.network.model.MenuRes
-import seoil.capstone.som_pos.data.network.model.Status
-import seoil.capstone.som_pos.data.network.model.StockModel
-import seoil.capstone.som_pos.data.network.model.StockRes
+import seoil.capstone.som_pos.data.network.model.*
 
 class MenuManagementPresenter: MenuManagementContract.Presenter {
 
@@ -123,7 +120,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
 
                         if (t.status == MenuApi.SUCCESS) {
 
-
+                            mView!!.initMenu()
                         }
                     }
 
@@ -143,6 +140,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                     override fun onSuccess(t: Status) {
                         if (t.status == MenuApi.SUCCESS) {
 
+                            mView!!.initMenu()
                         }
                     }
 
@@ -162,6 +160,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                     override fun onSuccess(t: Status) {
                         if (t.status == StockApi.SUCCESS) {
 
+                            mView!!.initStock()
                         }
                     }
 
@@ -181,6 +180,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                     override fun onSuccess(t: Status) {
                         if (t.status == StockApi.SUCCESS) {
 
+                            mView!!.initStock()
                         }
                     }
 
@@ -191,5 +191,45 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                 }
 
         mInteractor!!.deleteStock(shopId, stockCode, stockName, callback)
+    }
+
+    fun insertStock(req: StockModel) {
+
+        val callback: OnFinishApiListener<Status> =
+                object: OnFinishApiListener<Status> {
+                    override fun onSuccess(t: Status) {
+
+                        if (t.status == StockApi.SUCCESS) {
+
+                            mView!!.initStock()
+                        }
+                    }
+
+                    override fun onFailure(t: Throwable?) {
+                        Log.d("stockInsert", t.toString())
+                    }
+
+                }
+
+        mInteractor!!.insertStock(req, callback)
+    }
+
+    fun insertMenu(shopId: String, req: MenuModel) {
+
+        val callback: OnFinishApiListener<Status> =
+                object: OnFinishApiListener<Status> {
+                    override fun onSuccess(t: Status) {
+
+                        if (t.status == MenuApi.SUCCESS) {
+
+                            mView!!.initMenu()
+                        }
+                    }
+
+                    override fun onFailure(t: Throwable?) {
+                        Log.d("menuInsert", t.toString())
+                    }
+
+                }
     }
 }

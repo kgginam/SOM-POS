@@ -2,10 +2,7 @@ package seoil.capstone.som_pos.ui.menu
 
 import seoil.capstone.som_pos.data.network.AppApiHelper
 import seoil.capstone.som_pos.data.network.OnFinishApiListener
-import seoil.capstone.som_pos.data.network.model.MenuRes
-import seoil.capstone.som_pos.data.network.model.Status
-import seoil.capstone.som_pos.data.network.model.StockModel
-import seoil.capstone.som_pos.data.network.model.StockRes
+import seoil.capstone.som_pos.data.network.model.*
 
 class MenuManagementInteractor: MenuManagementContract.Interactor {
     override fun getMenuInfo(shopId: String, onFinishApiListener: OnFinishApiListener<MenuRes>) {
@@ -30,6 +27,14 @@ class MenuManagementInteractor: MenuManagementContract.Interactor {
 
     override fun updateStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
         AppApiHelper.getInstance().updateStock(req, onFinishApiListener)
+    }
+
+    override fun insertStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        AppApiHelper.getInstance().insertStock(req, onFinishApiListener)
+    }
+
+    override fun insertMenu(shopId: String, req: MenuModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        AppApiHelper.getInstance().insertMenu(shopId, req, onFinishApiListener)
     }
 
 
