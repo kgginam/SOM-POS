@@ -5,10 +5,10 @@ import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.api.ShopApi
 import seoil.capstone.som_pos.data.network.model.ShopRes
 
-class MainPresenter : MainContract.Presenter {
+class MainPresenter: MainContract.Presenter {
 
     private var mView: MainContract.View?= null
-    private var mInteractor : MainInteractor?= null
+    private var mInteractor: MainInteractor?= null
 
     override fun setView(view: MainContract.View) {
         mView = view
@@ -37,11 +37,14 @@ class MainPresenter : MainContract.Presenter {
 
                         mView!!.setGlobalData(t.results[0].shopCategory.toString())
                         Log.d("MainPresenter", t.results[0].shopCategory.toString())
+                    } else {
+
+                        mView!!.showDialog("서버 오류 입니다. 다시 시도해주세요")
                     }
                 }
 
                 override fun onFailure(t: Throwable?) {
-                    Log.d("MainError", t.toString())
+                    mView!!.showDialog("서버 오류 입니다. 관리자에게 문의해주세요\n" + t.toString())
                 }
 
             }

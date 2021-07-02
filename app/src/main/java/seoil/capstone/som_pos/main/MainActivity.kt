@@ -1,5 +1,7 @@
 package seoil.capstone.som_pos.main
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,13 +15,15 @@ import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.ui.menu.MenuManagementActivity
 import seoil.capstone.som_pos.ui.sell.SellManagementActivity
+import seoil.capstone.som_pos.util.Utility
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.View {
+class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View {
 
-    private var mBtnMenu : Button?= null
-    private var mBtnSell : Button?= null
-    private var mPresenter : MainPresenter?= null
-    private var isEnd : Boolean?= false
+    private var mBtnMenu: Button?= null
+    private var mBtnSell: Button?= null
+    private var mPresenter: MainPresenter?= null
+    private var isEnd: Boolean?= false
+    private var mDialog: Dialog?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.Vie
         mPresenter!!.createInteractor()
         mPresenter!!.setView(this)
 
-        val app : GlobalApplication = applicationContext as GlobalApplication
+        val app: GlobalApplication = applicationContext as GlobalApplication
         mPresenter!!.getShopInformation(app.getUserId())
 
     }
@@ -61,7 +65,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.Vie
 
     override fun onClick(v: View?) {
         val id = v!!.id
-        var intent : Intent?= null
+        var intent: Intent?= null
 
         if(!isEnd!!) {
 
@@ -86,20 +90,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, MainContract.Vie
     }
 
     override fun setGlobalData(category: String) {
-        val app : GlobalApplication = applicationContext as GlobalApplication
+        val app: GlobalApplication = applicationContext as GlobalApplication
         app.setCategory(category)
         isEnd = true
     }
 
     override fun showProgress() {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun hideProgress() {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun showDialog(msg: String?) {
-        TODO("Not yet implemented")
+
+        val onClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
+            if ( mDialog != null) {
+
+                mDialog = null
+            }
+        }
+
+        if (mDialog == null) {
+
+            Utility.instance()!!.showDialog(mDialog, msg, this, onClickListener)
+        }
     }
 }

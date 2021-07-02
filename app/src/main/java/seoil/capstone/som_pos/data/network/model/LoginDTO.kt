@@ -35,7 +35,7 @@ class LoginDTO {
 
         @field:Expose
         @field:SerializedName("id")
-        var kakaoId : String? = null
+        var kakaoId: String? = null
 
         init {
 

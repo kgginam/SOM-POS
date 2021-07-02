@@ -5,9 +5,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import seoil.capstone.som_pos.R
 
-class SellManagementActivity :AppCompatActivity(), SellManagementContract.View{
+class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
-    private var mPresenter : SellManagementPresenter?= null
+    private var mPresenter: SellManagementPresenter?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
