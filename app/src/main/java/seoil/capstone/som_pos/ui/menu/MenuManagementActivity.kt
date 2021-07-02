@@ -1,17 +1,17 @@
 package seoil.capstone.som_pos.ui.menu
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.*
 import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
-import seoil.capstone.som_pos.data.network.model.MenuModel
-import seoil.capstone.som_pos.data.network.model.MenuRes
-import seoil.capstone.som_pos.data.network.model.StockRes
+
 
 class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
 
@@ -116,6 +116,32 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         }
     }
 
-    data class MenuData(var menuName: String, var menuIngredients: String, var menuPrice: Int)
+    private val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            createAlert(viewHolder.adapterPosition)
+        }
+    }
+
+
+    private fun createAlert(position: Int) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle("전체 삭제 확인")
+                .setMessage("아이템 전체를 삭제하시겠습니까?")
+                .setCancelable(false)
+                .setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                })
+                .setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.cancel()
+                })
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    data class MenuData(var menuName: String?, var menuIngredients: String?, var menuPrice: Int?)
     data class StockData(var stockCode: Int?, var stockName: String?, var stockAmount: Int?)
 }
