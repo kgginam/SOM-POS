@@ -251,7 +251,7 @@ class AppApiHelper {
         mStockApi.insertStock(req, onFinishApiListener)
     }
 
-    fun updateStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
+    fun updateStock(req: StockUpdateNameModel, onFinishApiListener: OnFinishApiListener<Status>) {
         mStockApi.updateStock(req, onFinishApiListener)
     }
 
@@ -259,9 +259,6 @@ class AppApiHelper {
         mStockApi.updateStockAmount(req, onFinishApiListener)
     }
 
-    fun updateStockPrice(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
-        mStockApi.updateStockPrice(req, onFinishApiListener)
-    }
 
     fun deleteStock(shopId: String, stockCode: Int, stockName: String, onFinishApiListener: OnFinishApiListener<Status>) {
         mStockApi.deleteStock(shopId, stockCode, stockName, onFinishApiListener)

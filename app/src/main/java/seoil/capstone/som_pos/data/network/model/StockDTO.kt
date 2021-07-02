@@ -24,8 +24,24 @@ data class StockModel(
     var stockName: String?,
     @SerializedName("stockAmount")
     @Expose
-    var stockAmount: Int?,
-    @SerializedName("stockPrice")
-    @Expose
-    var stockPrice: Int?
+    var stockAmount: Int?
+)
+
+// 이름 수정 모델
+data class StockUpdateNameModel(
+        @SerializedName("stockCode")
+        @Expose
+        var stockCode: Int?,
+        @SerializedName("shopId")
+        @Expose
+        var shopId: String?,
+        @SerializedName("stockPrevName")
+        @Expose
+        var stockPrevName: String?,
+        @SerializedName("stockNewName")
+        @Expose
+        var stockNewName: String?,
+        @SerializedName("stockAmount")
+        @Expose
+        var stockAmount: Int?
 )
