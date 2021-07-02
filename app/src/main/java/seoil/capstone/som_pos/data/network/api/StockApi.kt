@@ -9,6 +9,7 @@ import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.model.Status
 import seoil.capstone.som_pos.data.network.model.StockModel
 import seoil.capstone.som_pos.data.network.model.StockRes
+import seoil.capstone.som_pos.data.network.model.StockUpdateNameModel
 import seoil.capstone.som_pos.data.network.model.retrofit.Stock
 
 class StockApi(retrofit: Retrofit) {
@@ -55,7 +56,7 @@ class StockApi(retrofit: Retrofit) {
         })
     }
 
-    fun updateStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
+    fun updateStock(req: StockUpdateNameModel, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mStockData.updateStock(req)
         call.enqueue(object : Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
@@ -74,23 +75,6 @@ class StockApi(retrofit: Retrofit) {
 
     fun updateStockAmount(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
         val call: Call<Status> = mStockData.updateStockAmount(req)
-        call.enqueue(object : Callback<Status> {
-            override fun onFailure(call: Call<Status>, t: Throwable) {
-                onFinishApiListener.onFailure(t)
-            }
-
-            override fun onResponse(call: Call<Status>, response: Response<Status>) {
-                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
-                    return
-                }
-
-                onFinishApiListener.onSuccess(response.body()!!)
-            }
-        })
-    }
-
-    fun updateStockPrice(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
-        val call: Call<Status> = mStockData.updateStockPrice(req)
         call.enqueue(object : Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)

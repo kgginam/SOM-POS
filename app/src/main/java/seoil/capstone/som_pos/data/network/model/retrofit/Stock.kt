@@ -5,6 +5,7 @@ import retrofit2.http.*
 import seoil.capstone.som_pos.data.network.model.Status
 import seoil.capstone.som_pos.data.network.model.StockModel
 import seoil.capstone.som_pos.data.network.model.StockRes
+import seoil.capstone.som_pos.data.network.model.StockUpdateNameModel
 
 interface Stock {
 
@@ -23,18 +24,12 @@ interface Stock {
     // 재고 이름, 수량, 가격 수정 요청
     @PUT("stock")
     fun updateStock(
-        @Body req: StockModel
+        @Body req: StockUpdateNameModel
     ): Call<Status>
 
     // 재고 수량 수정 요청
     @PUT("stock/amount")
     fun updateStockAmount(
-        @Body req: StockModel
-    ): Call<Status>
-
-    // 재고 가격 수정 요청
-    @PUT("stock/price")
-    fun updateStockPrice(
         @Body req: StockModel
     ): Call<Status>
 
