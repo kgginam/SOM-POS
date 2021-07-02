@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.network.model.StockModel
+import seoil.capstone.som_pos.data.network.model.StockUpdateNameModel
 
 
 class MenuManagementStockAdapter(
@@ -99,12 +100,12 @@ class MenuManagementStockAdapter(
                             } else {
 
                                 mPresenter.updateStock(
-                                        StockModel(
+                                        StockUpdateNameModel(
                                                 mStockList!![adapterPosition].stockCode,
                                                 mShopId,
+                                                mStockList!![adapterPosition].stockName,
                                                 editTextName.text.toString(),
-                                                editTextAmount.text.toString().toInt(),
-                                                null
+                                                editTextAmount.text.toString().toInt()
                                         )
                                 )
                                 notifyItemChanged(adapterPosition)

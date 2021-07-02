@@ -21,6 +21,7 @@ class MenuManagementMenuAdapter(
     private var mAlertDialog: AlertDialog?= null
 
     companion object {
+
         private const val ADAPTER_EDIT = 1
         private const val ADAPTER_DELETE = 2
         private const val ADAPTER_STOCK_EDIT = 3
@@ -70,7 +71,7 @@ class MenuManagementMenuAdapter(
             fun onMenuItemClick(item: MenuItem): Boolean {
 
                 when(item.itemId) {
-                    ADAPTER_DELETE -> mPresenter.deleteMenu(mShopId, mMenuList!![adapterPosition].menuName)
+                    ADAPTER_DELETE -> mPresenter.deleteMenu(mShopId, mMenuList!![adapterPosition].menuName!!)
                     ADAPTER_EDIT -> {
                         if (mAlertDialog != null) {
                             mAlertDialog!!.dismiss()
@@ -97,10 +98,10 @@ class MenuManagementMenuAdapter(
                             } else {
 
                                 mPresenter.updateMenu(mShopId,
-                                        mMenuList!![adapterPosition].menuName,
+                                        mMenuList!![adapterPosition].menuName!!,
                                         editTextName.text.toString(),
                                         editTextPrice.text.toString().toInt(),
-                                        mMenuList!![adapterPosition].menuIngredients
+                                        mMenuList!![adapterPosition].menuIngredients!!
                                 )
                                 notifyItemChanged(adapterPosition)
                                 mAlertDialog!!.dismiss()

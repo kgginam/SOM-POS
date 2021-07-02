@@ -26,7 +26,7 @@ interface MenuManagementContract {
         fun updateMenu(shopId: String, menuName: String, menuNewName: String,
                        menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>)
         fun deleteStock(shopId: String, stockCode: Int, stockName: String, onFinishApiListener: OnFinishApiListener<Status>)
-        fun updateStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>)
+        fun updateStock(req: StockUpdateNameModel, onFinishApiListener: OnFinishApiListener<Status>)
         fun insertStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>)
         fun insertMenu(shopId: String, req: MenuModel, onFinishApiListener: OnFinishApiListener<Status>)
     }

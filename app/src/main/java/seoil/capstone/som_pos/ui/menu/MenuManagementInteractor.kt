@@ -25,7 +25,7 @@ class MenuManagementInteractor: MenuManagementContract.Interactor {
         AppApiHelper.getInstance().deleteStock(shopId, stockCode, stockName, onFinishApiListener)
     }
 
-    override fun updateStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>) {
+    override fun updateStock(req: StockUpdateNameModel, onFinishApiListener: OnFinishApiListener<Status>) {
         AppApiHelper.getInstance().updateStock(req, onFinishApiListener)
     }
 

@@ -153,7 +153,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
         mInteractor!!.updateMenu(shopId, menuName, menuNewName, menuPrice, menuIngredients, callback)
     }
 
-    fun updateStock(req: StockModel) {
+    fun updateStock(req: StockUpdateNameModel) {
 
         val callback: OnFinishApiListener<Status> =
                 object: OnFinishApiListener<Status> {
