@@ -40,8 +40,8 @@ class MenuManagementMenuAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.textViewMenuName.text = mMenuList!![position].menuName
-        holder.textViewMenuPrice.text = Editable.Factory.getInstance().newEditable(mMenuList!![position].menuPrice.toString() + "원")
+        holder.textViewMenuName.text = mMenuList!![holder.adapterPosition].menuName
+        holder.textViewMenuPrice.text = Editable.Factory.getInstance().newEditable(mMenuList!![holder.adapterPosition].menuPrice.toString() + "원")
     }
 
     override fun getItemCount(): Int {
@@ -79,15 +79,20 @@ class MenuManagementMenuAdapter(
                         //다이얼로그로 재고 편집창 생성
                         val builder = AlertDialog.Builder(mContext)
                         val view: View = LayoutInflater.from(mContext).inflate(R.layout.dialog_menu_edit, null, false)
+
                         builder.setView(view)
+
                         val btnSubmit = view.findViewById<Button>(R.id.btnMenuSubitDialog)
                         val editTextName = view.findViewById<TextView>(R.id.editTextMenuNameDialog)
                         val editTextPrice = view.findViewById<EditText>(R.id.editTextMenuPriceDialog)
-                        editTextName.text = mMenuList!![adapterPosition].menuName
                         val string: String = mMenuList!![adapterPosition].menuPrice.toString()
+
+                        editTextName.text = mMenuList!![adapterPosition].menuName
                         editTextPrice.text = Editable.Factory.getInstance().newEditable(string)
+
                         mAlertDialog = builder.create()
                         mAlertDialog!!.show()
+
                         btnSubmit.setOnClickListener {
                             val amount = editTextPrice.text.toString()
 

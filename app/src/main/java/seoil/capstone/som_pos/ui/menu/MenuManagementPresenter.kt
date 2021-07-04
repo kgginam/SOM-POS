@@ -54,20 +54,24 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
 
                         if (t.status == MenuApi.SUCCESS) {
 
+                            Log.d("getMenu", t.toString())
                             val results: ArrayList<MenuManagementActivity.MenuData> = ArrayList()
 
                             for (i in t.results!!.indices) {
 
-                                val temp: MenuManagementActivity.MenuData = MenuManagementActivity.MenuData(
-
-                                        t.results[i].menuName.toString(),
-                                        t.results[i].menuIngredients.toString(),
-                                        t.results[i].menuPrice!!
+                                results.add(
+                                        MenuManagementActivity.MenuData(
+                                                t.results[i].menuName.toString(),
+                                                t.results[i].menuIngredients.toString(),
+                                                t.results[i].menuPrice
+                                        )
                                 )
-
-                                results.add(temp)
                             }
 
+                            mView!!.setMenuInfo(results)
+                        } else if (t.status == MenuApi.ERROR_NONE_DATA) {
+
+                            val results: ArrayList<MenuManagementActivity.MenuData> = ArrayList()
                             mView!!.setMenuInfo(results)
                         }
                     }
@@ -86,20 +90,26 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                 object: OnFinishApiListener<StockRes> {
                     override fun onSuccess(t: StockRes) {
 
+                        Log.d("getStock", t.toString())
                         if (t.status == StockApi.SUCCESS) {
 
                             val results: ArrayList<MenuManagementActivity.StockData> = ArrayList()
 
-                            for (i in t.results!!.indices) {
+                            for (result: StockModel in t.results!!) {
 
-                                val temp: MenuManagementActivity.StockData = MenuManagementActivity.StockData(
-                                        t.results[i].stockCode,
-                                        t.results[i].stockName,
-                                        t.results[i].stockAmount
+                                results.add(
+                                        MenuManagementActivity.StockData(
+                                            result.stockCode,
+                                            result.stockName,
+                                            result.stockAmount
+                                        )
                                 )
-                                results.add(temp)
                             }
 
+                            mView!!.setStock(results)
+                        } else if (t.status ==StockApi.ERROR_NONE_DATA) {
+
+                            val results: ArrayList<MenuManagementActivity.StockData> = ArrayList()
                             mView!!.setStock(results)
                         }
                     }
@@ -231,5 +241,6 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                     }
 
                 }
+        mInteractor!!.insertMenu(shopId, req, callback)
     }
 }

@@ -17,9 +17,10 @@ class StockApi(retrofit: Retrofit) {
     private val mStockData = retrofit.create(Stock::class.java)
 
     companion object {
-        const val SUCCESS = 0
-        const val ERROR = 1
-        const val ERROR_UNDEFINED_VALUE = 2
+        const val SUCCESS: Int = 0
+        const val ERROR: Int = 1
+        const val ERROR_UNDEFINED_VALUE: Int = 2
+        const val ERROR_NONE_DATA: Int = 3
     }
 
     fun getStock(shopId: String, onFinishApiListener: OnFinishApiListener<StockRes>) {

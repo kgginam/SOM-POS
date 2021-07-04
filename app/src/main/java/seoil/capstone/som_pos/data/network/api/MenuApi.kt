@@ -22,6 +22,7 @@ class MenuApi(retrofit: Retrofit) {
         const val SUCCESS: Int = 0
         const val ERROR: Int = 1
         const val ERROR_UNDEFINED_VALUE: Int = 2
+        const val ERROR_NONE_DATA: Int = 3
     }
 
     fun getMenuInfo(shopId: String, onFinishApiListener: OnFinishApiListener<MenuRes>) {

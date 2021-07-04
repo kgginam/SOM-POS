@@ -40,6 +40,8 @@ class MenuManagementStockAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        holder.textViewStockName.text = Editable.Factory.getInstance().newEditable(mStockList!![holder.adapterPosition].stockName)
+        holder.textViewStockAmount.text = Editable.Factory.getInstance().newEditable(mStockList!![holder.adapterPosition].stockAmount.toString())
     }
 
     override fun getItemCount(): Int {
@@ -80,11 +82,11 @@ class MenuManagementStockAdapter(
                         }
                         //다이얼로그로 재고 편집창 생성
                         val builder = AlertDialog.Builder(mContext)
-                        val view: View = LayoutInflater.from(mContext).inflate(R.layout.dialog_menu_edit, null, false)
+                        val view: View = LayoutInflater.from(mContext).inflate(R.layout.dialog_stock_insert, null, false)
                         builder.setView(view)
-                        val btnSubmit = view.findViewById<Button>(R.id.btnMenuSubitDialog)
-                        val editTextName = view.findViewById<TextView>(R.id.editTextMenuNameDialog)
-                        val editTextAmount = view.findViewById<EditText>(R.id.editTextMenuPriceDialog)
+                        val btnSubmit = view.findViewById<Button>(R.id.btnStockAdd)
+                        val editTextName = view.findViewById<TextView>(R.id.editTextStockNameInsert)
+                        val editTextAmount = view.findViewById<EditText>(R.id.editTextStockAmountInsert)
                         editTextName.text = mStockList!![adapterPosition].stockName
                         val string: String = mStockList!![adapterPosition].stockAmount.toString()
                         editTextAmount.text = Editable.Factory.getInstance().newEditable(string)

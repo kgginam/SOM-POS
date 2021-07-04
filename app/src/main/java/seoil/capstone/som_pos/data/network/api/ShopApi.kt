@@ -17,7 +17,7 @@ class ShopApi(retrofit: Retrofit) {
         const val SUCCESS = 0
         const val ERROR = 1
         const val ERROR_UNDEFINED_VALUE = 2
-        const val ERROR_NONE_DATE = 3
+        const val ERROR_NONE_DATA = 3
     }
 
     //매장 카테고리요청
