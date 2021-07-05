@@ -38,9 +38,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
         mPresenter!!.createInteractor()
         mPresenter!!.setView(this)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         val app: GlobalApplication = applicationContext as GlobalApplication
         mPresenter!!.getShopInformation(app.getUserId())
-
     }
 
     override fun onDestroy() {

@@ -37,5 +37,9 @@ class MenuManagementInteractor: MenuManagementContract.Interactor {
         AppApiHelper.getInstance().insertMenu(shopId, req, onFinishApiListener)
     }
 
+    override fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        AppApiHelper.getInstance().updateMenuIngredients(shopId, menuName, menuIngredients, onFinishApiListener)
+    }
+
 
 }

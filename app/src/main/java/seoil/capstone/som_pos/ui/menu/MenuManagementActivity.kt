@@ -170,6 +170,10 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         mPresenter!!.getStock(mShopId!!)
     }
 
+    override fun getStock(): ArrayList<StockData>? {
+        return mStockData
+    }
+
     override fun showProgress() {
         //TODO("Not yet implemented")
     }
@@ -220,6 +224,22 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
                 .setMessage("삭제하시겠습니까?")
                 .setCancelable(false)
                 .setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+
+                    when (mSelectedTab) {
+                        SELECTED_MENU -> {
+
+                            mPresenter!!.deleteMenu(mShopId!!, mMenuData!![position].menuName!!)
+                        }
+
+                        SELECTED_STOCK -> {
+
+                            mPresenter!!.deleteStock(mShopId!!, mStockData!![position].stockCode!!, mStockData!![position].stockName!!)
+                        }
+
+                        else -> {
+
+                        }
+                    }
 
                     dialog.dismiss()
                 })

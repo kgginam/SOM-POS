@@ -22,7 +22,7 @@ class MenuManagementMenuInsertStockAdapter(
 
         countData = ArrayList()
 
-        for(i in countData!!.indices) {
+        for(i in this.stockData!!.indices) {
 
             countData!!.add(0)
         }

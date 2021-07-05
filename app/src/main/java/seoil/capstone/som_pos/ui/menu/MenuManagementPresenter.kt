@@ -8,6 +8,7 @@ import seoil.capstone.som_pos.data.network.model.*
 
 class MenuManagementPresenter: MenuManagementContract.Presenter {
 
+
     private var mView: MenuManagementContract.View?= null
     private var mInteractor: MenuManagementInteractor?= null
 
@@ -33,6 +34,10 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
             return false
         }
         return true
+    }
+
+    override fun getStock(): ArrayList<MenuManagementActivity.StockData>? {
+        return mView!!.getStock()
     }
 
     fun isNumeric(str: String): Boolean {
@@ -131,6 +136,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                         if (t.status == MenuApi.SUCCESS) {
 
                             mView!!.initMenu()
+                            mView!!.showDialog("메뉴가 삭제되었습니다.")
                         }
                     }
 
@@ -151,6 +157,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                         if (t.status == MenuApi.SUCCESS) {
 
                             mView!!.initMenu()
+                            mView!!.showDialog("메뉴가 변경되었습니다.")
                         }
                     }
 
@@ -171,6 +178,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                         if (t.status == StockApi.SUCCESS) {
 
                             mView!!.initStock()
+                            mView!!.showDialog("재고가 변경되었습니다.")
                         }
                     }
 
@@ -191,6 +199,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                         if (t.status == StockApi.SUCCESS) {
 
                             mView!!.initStock()
+                            mView!!.showDialog("재고가 삭제되었습니다.")
                         }
                     }
 
@@ -212,6 +221,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                         if (t.status == StockApi.SUCCESS) {
 
                             mView!!.initStock()
+                            mView!!.showDialog("재고가 추가되었습니다.")
                         }
                     }
 
@@ -233,6 +243,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                         if (t.status == MenuApi.SUCCESS) {
 
                             mView!!.initMenu()
+                            mView!!.showDialog("메뉴가 추가되었습니다.")
                         }
                     }
 
@@ -242,5 +253,26 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
 
                 }
         mInteractor!!.insertMenu(shopId, req, callback)
+    }
+
+    fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String) {
+
+        val callback: OnFinishApiListener<Status> =
+                object: OnFinishApiListener<Status> {
+                    override fun onSuccess(t: Status) {
+
+                        if (t.status == MenuApi.SUCCESS) {
+
+                            mView!!.initMenu()
+                            mView!!.showDialog("메뉴의 재료가 변경되었습니다.")
+                        }
+                    }
+
+                    override fun onFailure(t: Throwable?) {
+
+                    }
+
+                }
+        mInteractor!!.updateMenuIngredients(shopId, menuName, menuIngredients, callback)
     }
 }
