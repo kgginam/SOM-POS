@@ -19,34 +19,30 @@ interface Menu {
         @Body req: MenuModel
     ): Call<Status>
 
-    @PUT("menu/{shopId}/{menuName}")
+    @PUT("menu/")
     fun updateMenu(
-        @Path("shopId") shopId: String,
-        @Path("menuName") menuName: String,
-        @Query("menuNewName") menuNewName: String,
+        @Query("menuCode") menuCode: Int,
+        @Query("menuName") menuName: String,
         @Query("menuPrice") menuPrice: Int,
         @Query("menuIngredients") menuIngredients: String
     ): Call<Status>
 
-    @PUT("menu/{shopId}/{menuName}/name")
+    @PUT("menu/name")
     fun updateMenuName(
-        @Path("shopId") shopId: String,
-        @Path("menuName") menuName: String,
-        @Query("menuNewName") menuNewName: String
+            @Query("menuCode") menuCode: Int,
+            @Query("menuName") menuName: String
     ): Call<Status>
 
-    @PUT("menu/{shopId}/{menuName}/price")
+    @PUT("menu/price")
     fun updateMenuPrice(
-        @Path("shopId") shopId: String,
-        @Path("menuName") menuName: String,
-        @Query("menuPrice") menuPrice: Int
+            @Query("menuCode") menuCode: Int,
+            @Query("menuPrice") menuPrice: Int
     ): Call<Status>
 
-    @PUT("menu/{shopId}/{menuName}/ingredients")
+    @PUT("menu/ingredients")
     fun updateMenuIngredients(
-        @Path("shopId") shopId: String,
-        @Path("menuName") menuName: String,
-        @Query("menuIngredients") menuIngredients: String
+            @Query("menuCode") menuCode: Int,
+            @Query("menuIngredients") menuIngredients: String
     ): Call<Status>
 
     @DELETE("menu/{shopId}")
@@ -54,9 +50,8 @@ interface Menu {
         @Path("shopId") shopId: String
     ): Call<Status>
 
-    @DELETE("menu/{shopId}/{menuName}")
+    @DELETE("menu/")
     fun deleteMenu(
-        @Path("shopId") shopId: String,
-        @Path("menuName") menuName: String
+            @Query("menuCode") menuCode: Int
     ): Call<Status>
 }

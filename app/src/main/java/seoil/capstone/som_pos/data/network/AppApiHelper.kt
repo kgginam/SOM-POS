@@ -216,29 +216,28 @@ class AppApiHelper {
         mMenuApi.insertMenu(shopId, req, onFinishApiListener)
     }
 
-    fun updateMenu(shopId: String, menuName: String, menuNewName: String,
-                   menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        mMenuApi.updateMenu(shopId, menuName, menuNewName, menuPrice, menuIngredients, onFinishApiListener)
+    fun updateMenu(menuCode: Int, menuName: String, menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.updateMenu(menuCode, menuName, menuPrice, menuIngredients, onFinishApiListener)
     }
 
-    fun updateMenuName(shopId: String, menuName: String, menuNewName: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        mMenuApi.updateMenuName(shopId, menuName, menuNewName, onFinishApiListener)
+    fun updateMenuName(menuCode: Int, menuName: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.updateMenuName(menuCode , menuName, onFinishApiListener)
     }
 
-    fun updateMenuPrice(shopId: String, menuName: String, menuPrice: Int, onFinishApiListener: OnFinishApiListener<Status>) {
-        mMenuApi.updateMenuPrice(shopId, menuName, menuPrice, onFinishApiListener)
+    fun updateMenuPrice(menuCode: Int, menuPrice: Int, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.updateMenuPrice(menuCode, menuPrice, onFinishApiListener)
     }
 
-    fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        mMenuApi.updateMenuIngredients(shopId, menuName, menuIngredients, onFinishApiListener)
+    fun updateMenuIngredients(menuCode: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.updateMenuIngredients(menuCode, menuIngredients, onFinishApiListener)
     }
 
     fun deleteAllMenu(shopId: String, onFinishApiListener: OnFinishApiListener<Status>) {
         mMenuApi.deleteAllMenu(shopId, onFinishApiListener)
     }
 
-    fun deleteMenu(shopId: String, menuName: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        mMenuApi.deleteMenu(shopId, menuName, onFinishApiListener)
+    fun deleteMenu(menuCode: Int, onFinishApiListener: OnFinishApiListener<Status>) {
+        mMenuApi.deleteMenu(menuCode, onFinishApiListener)
     }
 
     fun getStock(shopId: String, onFinishApiListener: OnFinishApiListener<StockRes>) {
