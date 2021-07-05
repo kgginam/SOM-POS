@@ -7,8 +7,8 @@ import seoil.capstone.som_pos.data.network.model.ShopRes
 
 class MainPresenter: MainContract.Presenter {
 
-    private var mView: MainContract.View?= null
-    private var mInteractor: MainInteractor?= null
+    private var mView: MainContract.View? = null
+    private var mInteractor: MainInteractor? = null
 
     override fun setView(view: MainContract.View) {
         mView = view

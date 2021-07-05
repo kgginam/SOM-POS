@@ -116,7 +116,6 @@ class AppApiHelper {
                         if (user != null) {
                             onFinishApiListener.onSuccess(LoginDTO.KakaoLoginRes(user.id.toString()))
                         }
-                        null
                     }
                 }
 
@@ -126,7 +125,6 @@ class AppApiHelper {
                     // 예외 처리
                     Log.d("API", "throwable: $throwable")
                 }
-                null
             }
         // 카카오 어플 존재하는지 확인
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(context!!)) {

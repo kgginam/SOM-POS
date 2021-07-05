@@ -20,8 +20,8 @@ class MenuManagementStockAdapter(
         private val mContext: Context
 ) : RecyclerView.Adapter<MenuManagementStockAdapter.ViewHolder>() {
 
-    private var mStockList: ArrayList<MenuManagementActivity.StockData>?= null
-    private var mAlertDialog: AlertDialog?= null
+    private var mStockList: ArrayList<MenuManagementActivity.StockData>? = null
+    private var mAlertDialog: AlertDialog? = null
 
     init {
         mStockList = stockList

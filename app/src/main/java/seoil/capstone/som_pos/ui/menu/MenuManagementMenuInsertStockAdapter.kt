@@ -14,8 +14,8 @@ class MenuManagementMenuInsertStockAdapter(
         stockData: ArrayList<MenuManagementActivity.StockData>?
 ) : RecyclerView.Adapter<MenuManagementMenuInsertStockAdapter.ViewHolder>() {
 
-    private var stockData: ArrayList<MenuManagementActivity.StockData>?= null
-    private var countData: ArrayList<Int>?= null
+    private var stockData: ArrayList<MenuManagementActivity.StockData>? = null
+    private var countData: ArrayList<Int>? = null
 
     init {
         this.stockData = stockData

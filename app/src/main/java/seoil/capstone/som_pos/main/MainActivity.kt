@@ -19,11 +19,11 @@ import seoil.capstone.som_pos.util.Utility
 
 class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View {
 
-    private var mBtnMenu: Button?= null
-    private var mBtnSell: Button?= null
-    private var mPresenter: MainPresenter?= null
-    private var isEnd: Boolean?= false
-    private var mDialog: Dialog?= null
+    private var mBtnMenu: Button? = null
+    private var mBtnSell: Button? = null
+    private var mPresenter: MainPresenter? = null
+    private var isEnd: Boolean? = false
+    private var mDialog: Dialog? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +69,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
 
     override fun onClick(v: View?) {
         val id = v!!.id
-        var intent: Intent?= null
+        var intent: Intent? = null
 
         if(!isEnd!!) {
 

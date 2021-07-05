@@ -9,8 +9,8 @@ import seoil.capstone.som_pos.data.network.model.*
 class MenuManagementPresenter: MenuManagementContract.Presenter {
 
 
-    private var mView: MenuManagementContract.View?= null
-    private var mInteractor: MenuManagementInteractor?= null
+    private var mView: MenuManagementContract.View? = null
+    private var mInteractor: MenuManagementInteractor? = null
 
     override fun setView(view: MenuManagementContract.View) {
         mView = view

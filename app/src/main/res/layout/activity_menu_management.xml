@@ -26,6 +26,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/add_sign"
+        android:contentDescription="추가 버튼"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayoutMenu" />
 

@@ -20,7 +20,7 @@ class MenuManagementMenuAdapter(
 ): RecyclerView.Adapter<MenuManagementMenuAdapter.ViewHolder>() {
 
     private var mMenuList: ArrayList<MenuManagementActivity.MenuData>? = null
-    private var mAlertDialog: AlertDialog?= null
+    private var mAlertDialog: AlertDialog? = null
 
     companion object {
 
