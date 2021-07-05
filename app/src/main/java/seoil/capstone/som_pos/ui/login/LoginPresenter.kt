@@ -15,7 +15,7 @@ class LoginPresenter : LoginContract.Presenter {
 
     private val TAG = "LoginPresenter"
 
-    private var view : LoginContract.View?= null
+    private var view : LoginContract.View? = null
     private var mPresenter : LoginPresenter? = null
     private var mInteractor: LoginInteractor? = null
 

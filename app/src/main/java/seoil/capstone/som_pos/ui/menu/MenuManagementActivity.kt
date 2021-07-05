@@ -26,29 +26,29 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
 
     private val mDelayTime = 60L * 5L * 1000L
 
-    private var mApp: GlobalApplication?= null
+    private var mApp: GlobalApplication? = null
     private var mPresenter: MenuManagementPresenter? = null
-    private var mJob: Job?= null
+    private var mJob: Job? = null
 
     private var mRecyclerView: RecyclerView? = null
     private var mTabLayout: TabLayout? = null
-    private var mImageBtnAdd: ImageView?= null
+    private var mImageBtnAdd: ImageView? = null
 
     private var mShopId: String? = null
-    private var mSelectedTab: Int?= null
+    private var mSelectedTab: Int? = null
 
-    private var mMenuData: ArrayList<MenuData>?= null
-    private var mStockData: ArrayList<StockData>?= null
+    private var mMenuData: ArrayList<MenuData>? = null
+    private var mStockData: ArrayList<StockData>? = null
 
-    private var mAlertDialog: AlertDialog?= null
+    private var mAlertDialog: AlertDialog? = null
 
-    private var mNameQuery: String?= null
-    private var mIntQuery: Int?= null
-    private var mIngredientsQuery: String?= null
+    private var mNameQuery: String? = null
+    private var mIntQuery: Int? = null
+    private var mIngredientsQuery: String? = null
 
-    private var mMenuAdapter: MenuManagementMenuAdapter?= null
-    private var mStockAdapter: MenuManagementStockAdapter?= null
-    private var mMenuInsertStockAdapter: MenuManagementMenuInsertStockAdapter?= null
+    private var mMenuAdapter: MenuManagementMenuAdapter? = null
+    private var mStockAdapter: MenuManagementStockAdapter? = null
+    private var mMenuInsertStockAdapter: MenuManagementMenuInsertStockAdapter? = null
 
     companion object {
 
