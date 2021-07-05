@@ -7,8 +7,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import seoil.capstone.som_pos.R
+import seoil.capstone.som_pos.data.network.model.MenuModel
 
 class MenuManagementMenuAdapter(
         private val menuList: ArrayList<MenuManagementActivity.MenuData>,
@@ -115,6 +117,32 @@ class MenuManagementMenuAdapter(
                     }
                     ADAPTER_STOCK_EDIT -> {
 
+                        if (mAlertDialog != null) {
+
+                            mAlertDialog!!.dismiss()
+                        }
+                        val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+                        val view: View = LayoutInflater.from(mContext).inflate(R.layout.dialog_menu_insert_stock, null, false)
+
+
+                        builder.setView(view)
+
+                        val recyclerViewMenuInsertStock: RecyclerView = view.findViewById(R.id.recyclerViewMenuInsertStock)
+                        val btnSubmit: Button = view.findViewById(R.id.btnMenuInsertStockSubmit)
+                        val stockDatas = mPresenter.getStock()
+                        val adapter: MenuManagementMenuInsertStockAdapter = MenuManagementMenuInsertStockAdapter(stockDatas)
+
+                        recyclerViewMenuInsertStock.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+                        recyclerViewMenuInsertStock.adapter = adapter
+
+                        btnSubmit.setOnClickListener{
+                            val ingredientsQuery = adapter.getStockIngredients()
+                            mPresenter.updateMenuIngredients(mShopId, stockDatas!![adapterPosition].stockName!!, ingredientsQuery)
+                            mAlertDialog!!.dismiss()
+                        }
+
+                        mAlertDialog = builder.create()
+                        mAlertDialog!!.show()
                     }
                     else -> {
 

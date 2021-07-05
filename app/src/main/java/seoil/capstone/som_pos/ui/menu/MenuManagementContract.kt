@@ -12,10 +12,12 @@ interface MenuManagementContract {
         fun setStock(stockData: ArrayList<MenuManagementActivity.StockData>)
         fun initMenu()
         fun initStock()
+        fun getStock() : ArrayList<MenuManagementActivity.StockData>?
     }
 
     interface Presenter: BaseContract.Presenter<View> {
 
+        fun getStock() : ArrayList<MenuManagementActivity.StockData>?
     }
 
     interface Interactor: BaseContract.Interactor {
@@ -29,5 +31,6 @@ interface MenuManagementContract {
         fun updateStock(req: StockUpdateNameModel, onFinishApiListener: OnFinishApiListener<Status>)
         fun insertStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>)
         fun insertMenu(shopId: String, req: MenuModel, onFinishApiListener: OnFinishApiListener<Status>)
+        fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>)
     }
 }
