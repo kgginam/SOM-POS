@@ -24,13 +24,12 @@ interface MenuManagementContract {
 
         fun getMenuInfo(shopId: String, onFinishApiListener: OnFinishApiListener<MenuRes>)
         fun getStock(shopId: String, onFinishApiListener: OnFinishApiListener<StockRes>)
-        fun deleteMenu(shopId: String, menuName: String, onFinishApiListener: OnFinishApiListener<Status>)
-        fun updateMenu(shopId: String, menuName: String, menuNewName: String,
-                       menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>)
+        fun deleteMenu(menuCode: Int, onFinishApiListener: OnFinishApiListener<Status>)
+        fun updateMenu(menuCode: Int, menuName: String, menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>)
         fun deleteStock(shopId: String, stockCode: Int, stockName: String, onFinishApiListener: OnFinishApiListener<Status>)
         fun updateStock(req: StockUpdateNameModel, onFinishApiListener: OnFinishApiListener<Status>)
         fun insertStock(req: StockModel, onFinishApiListener: OnFinishApiListener<Status>)
         fun insertMenu(shopId: String, req: MenuModel, onFinishApiListener: OnFinishApiListener<Status>)
-        fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>)
+        fun updateMenuIngredients(menuCode: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>)
     }
 }

@@ -73,7 +73,7 @@ class MenuManagementMenuAdapter(
             fun onMenuItemClick(item: MenuItem): Boolean {
 
                 when(item.itemId) {
-                    ADAPTER_DELETE -> mPresenter.deleteMenu(mShopId, mMenuList!![adapterPosition].menuName!!)
+                    ADAPTER_DELETE -> mPresenter.deleteMenu(mMenuList!![adapterPosition].menuCode!!)
                     ADAPTER_EDIT -> {
                         if (mAlertDialog != null) {
                             mAlertDialog!!.dismiss()
@@ -104,8 +104,8 @@ class MenuManagementMenuAdapter(
                                 editTextPrice.requestFocus()
                             } else {
 
-                                mPresenter.updateMenu(mShopId,
-                                        mMenuList!![adapterPosition].menuName!!,
+                                mPresenter.updateMenu(
+                                        mMenuList!![adapterPosition].menuCode!!,
                                         editTextName.text.toString(),
                                         editTextPrice.text.toString().toInt(),
                                         mMenuList!![adapterPosition].menuIngredients!!
@@ -137,7 +137,7 @@ class MenuManagementMenuAdapter(
 
                         btnSubmit.setOnClickListener{
                             val ingredientsQuery = adapter.getStockIngredients()
-                            mPresenter.updateMenuIngredients(mShopId, stockDatas!![adapterPosition].stockName!!, ingredientsQuery)
+                            mPresenter.updateMenuIngredients(mMenuList!![adapterPosition].menuCode!!, ingredientsQuery)
                             mAlertDialog!!.dismiss()
                         }
 

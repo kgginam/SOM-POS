@@ -229,7 +229,7 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
                     when (mSelectedTab) {
                         SELECTED_MENU -> {
 
-                            mPresenter!!.deleteMenu(mShopId!!, mMenuData!![position].menuName!!)
+                            mPresenter!!.deleteMenu(mMenuData!![position].menuCode!!)
                         }
 
                         SELECTED_STOCK -> {
@@ -274,7 +274,7 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
 
         btnSubmit.setOnClickListener{
             mIngredientsQuery = mMenuInsertStockAdapter!!.getStockIngredients()
-            mPresenter!!.insertMenu(mShopId!!, MenuModel(mShopId, mNameQuery, mIntQuery, mIngredientsQuery))
+            mPresenter!!.insertMenu(mShopId!!, MenuModel(-1, mShopId, mNameQuery, mIntQuery, mIngredientsQuery))
             mAlertDialog!!.dismiss()
         }
 
@@ -321,6 +321,7 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
                         mPresenter!!.insertMenu(
                             mShopId!!,
                             MenuModel(
+                                -1,
                                 mShopId!!,
                                 editTextNameMenu.text.toString(),
                                 editTextPriceMenu.text.toString().toInt(),
@@ -409,6 +410,6 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         mAlertDialog!!.show()
     }
 
-    data class MenuData(var menuName: String?, var menuIngredients: String?, var menuPrice: Int?)
+    data class MenuData(var menuCode: Int?, var menuName: String?, var menuIngredients: String?, var menuPrice: Int?)
     data class StockData(var stockCode: Int?, var stockName: String?, var stockAmount: Int?)
 }
