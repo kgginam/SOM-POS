@@ -59,9 +59,8 @@ class MenuApi(retrofit: Retrofit) {
         })
     }
 
-    fun updateMenu(shopId: String, menuName: String, menuNewName: String,
-                   menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        val call: Call<Status> = mMenuData.updateMenu(shopId, menuName, menuNewName, menuPrice, menuIngredients)
+    fun updateMenu(menuCode: Int, menuName: String, menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        val call: Call<Status> = mMenuData.updateMenu(menuCode, menuName, menuPrice, menuIngredients)
         call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
@@ -77,8 +76,8 @@ class MenuApi(retrofit: Retrofit) {
         })
     }
 
-    fun updateMenuName(shopId: String, menuName: String, menuNewName: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        val call: Call<Status> = mMenuData.updateMenuName(shopId, menuName, menuNewName)
+    fun updateMenuName(menuCode: Int, menuName: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        val call: Call<Status> = mMenuData.updateMenuName(menuCode, menuName)
         call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
@@ -94,8 +93,8 @@ class MenuApi(retrofit: Retrofit) {
         })
     }
 
-    fun updateMenuPrice(shopId: String, menuName: String, menuPrice: Int, onFinishApiListener: OnFinishApiListener<Status>) {
-        val call: Call<Status> = mMenuData.updateMenuPrice(shopId, menuName, menuPrice)
+    fun updateMenuPrice(menuCode: Int, menuPrice: Int, onFinishApiListener: OnFinishApiListener<Status>) {
+        val call: Call<Status> = mMenuData.updateMenuPrice(menuCode, menuPrice)
         call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
@@ -111,8 +110,8 @@ class MenuApi(retrofit: Retrofit) {
         })
     }
 
-    fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        val call: Call<Status> = mMenuData.updateMenuIngredients(shopId, menuName, menuIngredients)
+    fun updateMenuIngredients(menuCode: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        val call: Call<Status> = mMenuData.updateMenuIngredients(menuCode, menuIngredients)
         call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
@@ -145,8 +144,8 @@ class MenuApi(retrofit: Retrofit) {
         })
     }
 
-    fun deleteMenu(shopId: String, menuName: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        val call: Call<Status> = mMenuData.deleteMenu(shopId, menuName)
+    fun deleteMenu(menuCode: Int, onFinishApiListener: OnFinishApiListener<Status>) {
+        val call: Call<Status> = mMenuData.deleteMenu(menuCode)
         call.enqueue(object: Callback<Status> {
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 onFinishApiListener.onFailure(t)
