@@ -13,12 +13,12 @@ class MenuManagementInteractor: MenuManagementContract.Interactor {
         AppApiHelper.getInstance().getStock(shopId, onFinishApiListener)
     }
 
-    override fun deleteMenu(shopId: String, menuName: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        AppApiHelper.getInstance().deleteMenu(shopId, menuName, onFinishApiListener)
+    override fun deleteMenu(menuCode: Int, onFinishApiListener: OnFinishApiListener<Status>) {
+        AppApiHelper.getInstance().deleteMenu(menuCode, onFinishApiListener)
     }
 
-    override fun updateMenu(shopId: String, menuName: String, menuNewName: String, menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        AppApiHelper.getInstance().updateMenu(shopId, menuName, menuNewName, menuPrice, menuIngredients, onFinishApiListener)
+    override fun updateMenu(menuCode: Int, menuName: String, menuPrice: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        AppApiHelper.getInstance().updateMenu(menuCode, menuName, menuPrice, menuIngredients, onFinishApiListener)
     }
 
     override fun deleteStock(shopId: String, stockCode: Int, stockName: String, onFinishApiListener: OnFinishApiListener<Status>) {
@@ -37,8 +37,8 @@ class MenuManagementInteractor: MenuManagementContract.Interactor {
         AppApiHelper.getInstance().insertMenu(shopId, req, onFinishApiListener)
     }
 
-    override fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        AppApiHelper.getInstance().updateMenuIngredients(shopId, menuName, menuIngredients, onFinishApiListener)
+    override fun updateMenuIngredients(menuCode: Int, menuIngredients: String, onFinishApiListener: OnFinishApiListener<Status>) {
+        AppApiHelper.getInstance().updateMenuIngredients(menuCode, menuIngredients, onFinishApiListener)
     }
 
 

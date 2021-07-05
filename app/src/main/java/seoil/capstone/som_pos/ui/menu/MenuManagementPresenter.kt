@@ -66,6 +66,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
 
                                 results.add(
                                         MenuManagementActivity.MenuData(
+                                                t.results[i].menuCode,
                                                 t.results[i].menuName.toString(),
                                                 t.results[i].menuIngredients.toString(),
                                                 t.results[i].menuPrice
@@ -127,7 +128,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
         mInteractor!!.getStock(shopId, callback)
     }
 
-    fun deleteMenu(shopId: String, menuName: String) {
+    fun deleteMenu(menuCode: Int) {
 
         val callback: OnFinishApiListener<Status> =
                 object: OnFinishApiListener<Status> {
@@ -146,10 +147,10 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
 
                 }
 
-        mInteractor!!.deleteMenu(shopId, menuName, callback)
+        mInteractor!!.deleteMenu(menuCode, callback)
     }
 
-    fun updateMenu(shopId: String, menuName: String, menuNewName: String, menuPrice: Int, menuIngredients: String) {
+    fun updateMenu(menuCode: Int, menuName: String, menuPrice: Int, menuIngredients: String) {
 
         val callback: OnFinishApiListener<Status> =
                 object: OnFinishApiListener<Status> {
@@ -167,7 +168,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
 
                 }
 
-        mInteractor!!.updateMenu(shopId, menuName, menuNewName, menuPrice, menuIngredients, callback)
+        mInteractor!!.updateMenu(menuCode, menuName, menuPrice, menuIngredients, callback)
     }
 
     fun updateStock(req: StockUpdateNameModel) {
@@ -255,7 +256,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
         mInteractor!!.insertMenu(shopId, req, callback)
     }
 
-    fun updateMenuIngredients(shopId: String, menuName: String, menuIngredients: String) {
+    fun updateMenuIngredients(menuCode: Int, menuIngredients: String) {
 
         val callback: OnFinishApiListener<Status> =
                 object: OnFinishApiListener<Status> {
@@ -273,6 +274,6 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                     }
 
                 }
-        mInteractor!!.updateMenuIngredients(shopId, menuName, menuIngredients, callback)
+        mInteractor!!.updateMenuIngredients(menuCode, menuIngredients, callback)
     }
 }
