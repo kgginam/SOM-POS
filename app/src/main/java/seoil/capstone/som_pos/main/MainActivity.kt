@@ -110,7 +110,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
     override fun showDialog(msg: String?) {
 
         val onClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
-            if ( mDialog != null) {
+            if (mDialog != null) {
 
                 mDialog = null
             }

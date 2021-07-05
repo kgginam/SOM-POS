@@ -37,7 +37,7 @@ class MainPresenter: MainContract.Presenter {
 
                         mView!!.setGlobalData(t.results[0].shopCategory.toString())
                         Log.d("MainPresenter", t.results[0].shopCategory.toString())
-                    } else {
+                    } else if (t.status == ShopApi.ERROR) {
 
                         mView!!.showDialog("서버 오류 입니다. 다시 시도해주세요")
                     }

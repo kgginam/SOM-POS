@@ -19,6 +19,7 @@ import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.network.model.MenuModel
 import seoil.capstone.som_pos.data.network.model.StockModel
+import seoil.capstone.som_pos.util.Utility
 
 
 class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
@@ -183,7 +184,18 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
     }
 
     override fun showDialog(msg: String?) {
-        //TODO("Not yet implemented")
+
+        val onClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
+            if (mAlertDialog != null) {
+
+                mAlertDialog = null
+            }
+        }
+
+        if (mAlertDialog == null) {
+
+            Utility.instance()!!.showDialog(mAlertDialog, msg, this, onClickListener)
+        }
     }
 
     private fun initCoroutine() {
@@ -206,17 +218,6 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
             }
         }
     }
-
-    private val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-            return false
-        }
-
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            createAlert(viewHolder.adapterPosition)
-        }
-    }
-
 
     private fun createAlert(position: Int) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
