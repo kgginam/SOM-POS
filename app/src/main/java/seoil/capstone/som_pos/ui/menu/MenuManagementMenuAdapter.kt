@@ -1,5 +1,6 @@
 package seoil.capstone.som_pos.ui.menu
 
+import MenuManagementUpdateIngredientsAdapter
 import android.content.Context
 import android.text.Editable
 import android.view.*
@@ -73,6 +74,7 @@ class MenuManagementMenuAdapter(
 
                 when(item.itemId) {
                     ADAPTER_DELETE -> mPresenter.deleteMenu(mMenuList!![adapterPosition].menuCode!!)
+
                     ADAPTER_EDIT -> {
                         if (mAlertDialog != null) {
                             mAlertDialog!!.dismiss()
@@ -114,6 +116,7 @@ class MenuManagementMenuAdapter(
                             }
                         }
                     }
+
                     ADAPTER_STOCK_EDIT -> {
 
                         if (mAlertDialog != null) {
@@ -129,7 +132,7 @@ class MenuManagementMenuAdapter(
                         val recyclerViewMenuInsertStock: RecyclerView = view.findViewById(R.id.recyclerViewMenuInsertStock)
                         val btnSubmit: Button = view.findViewById(R.id.btnMenuInsertStockSubmit)
                         val stockDatas = mPresenter.getStock()
-                        val adapter: MenuManagementMenuInsertStockAdapter = MenuManagementMenuInsertStockAdapter(stockDatas)
+                        val adapter: MenuManagementUpdateIngredientsAdapter = MenuManagementUpdateIngredientsAdapter(stockDatas, mPresenter, adapterPosition)
 
                         recyclerViewMenuInsertStock.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
                         recyclerViewMenuInsertStock.adapter = adapter

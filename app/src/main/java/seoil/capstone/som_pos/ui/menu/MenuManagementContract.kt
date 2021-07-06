@@ -13,12 +13,14 @@ interface MenuManagementContract {
         fun setStock(stockData: ArrayList<DataModel.StockData>)
         fun initMenu()
         fun initStock()
-        fun getStock() : ArrayList<DataModel.StockData>?
+        fun getStock(): ArrayList<DataModel.StockData>?
+        fun getIngredients(position: Int): String?
     }
 
     interface Presenter: BaseContract.Presenter<View> {
 
-        fun getStock() : ArrayList<DataModel.StockData>?
+        fun getStock(): ArrayList<DataModel.StockData>?
+        fun getIngredients(position: Int): String?
     }
 
     interface Interactor: BaseContract.Interactor {
