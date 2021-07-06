@@ -175,6 +175,11 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         return mStockData
     }
 
+    override fun getIngredients(position: Int): String? {
+
+        return mMenuData!![position].menuIngredients
+    }
+
     override fun showProgress() {
         //TODO("Not yet implemented")
     }

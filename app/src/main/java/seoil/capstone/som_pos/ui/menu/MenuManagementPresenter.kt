@@ -41,6 +41,10 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
         return mView!!.getStock()
     }
 
+    override fun getIngredients(position: Int): String? {
+        return mView!!.getIngredients(position)
+    }
+
     fun isNumeric(str: String): Boolean {
         for (i in str.indices) {
 
