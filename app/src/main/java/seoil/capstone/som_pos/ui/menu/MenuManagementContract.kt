@@ -1,6 +1,7 @@
 package seoil.capstone.som_pos.ui.menu
 
 import seoil.capstone.som_pos.base.BaseContract
+import seoil.capstone.som_pos.data.model.DataModel
 import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.model.*
 
@@ -8,16 +9,16 @@ interface MenuManagementContract {
 
     interface View: BaseContract.View {
 
-        fun setMenuInfo(menuInfo: ArrayList<MenuManagementActivity.MenuData>)
-        fun setStock(stockData: ArrayList<MenuManagementActivity.StockData>)
+        fun setMenuInfo(menuInfo: ArrayList<DataModel.MenuData>)
+        fun setStock(stockData: ArrayList<DataModel.StockData>)
         fun initMenu()
         fun initStock()
-        fun getStock() : ArrayList<MenuManagementActivity.StockData>?
+        fun getStock() : ArrayList<DataModel.StockData>?
     }
 
     interface Presenter: BaseContract.Presenter<View> {
 
-        fun getStock() : ArrayList<MenuManagementActivity.StockData>?
+        fun getStock() : ArrayList<DataModel.StockData>?
     }
 
     interface Interactor: BaseContract.Interactor {

@@ -9,18 +9,18 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import seoil.capstone.som_pos.R
-import seoil.capstone.som_pos.data.network.model.StockModel
+import seoil.capstone.som_pos.data.model.DataModel
 import seoil.capstone.som_pos.data.network.model.StockUpdateNameModel
 
 
 class MenuManagementStockAdapter(
-        private val stockList: ArrayList<MenuManagementActivity.StockData>,
+        private val stockList: ArrayList<DataModel.StockData>,
         private val mPresenter: MenuManagementPresenter,
         private val mShopId: String,
         private val mContext: Context
 ) : RecyclerView.Adapter<MenuManagementStockAdapter.ViewHolder>() {
 
-    private var mStockList: ArrayList<MenuManagementActivity.StockData>? = null
+    private var mStockList: ArrayList<DataModel.StockData>? = null
     private var mAlertDialog: AlertDialog? = null
 
     init {
@@ -53,8 +53,9 @@ class MenuManagementStockAdapter(
         return mStockList!!.size
     }
 
-    fun setData(stockList: ArrayList<MenuManagementActivity.StockData>) {
+    fun setData(stockList: ArrayList<DataModel.StockData>) {
         if (mStockList != null) {
+
             mStockList!!.clear()
         }
         mStockList = stockList

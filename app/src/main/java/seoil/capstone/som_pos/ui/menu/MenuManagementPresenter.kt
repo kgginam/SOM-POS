@@ -1,6 +1,7 @@
 package seoil.capstone.som_pos.ui.menu
 
 import android.util.Log
+import seoil.capstone.som_pos.data.model.DataModel
 import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.api.MenuApi
 import seoil.capstone.som_pos.data.network.api.StockApi
@@ -36,7 +37,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
         return true
     }
 
-    override fun getStock(): ArrayList<MenuManagementActivity.StockData>? {
+    override fun getStock(): ArrayList<DataModel.StockData>? {
         return mView!!.getStock()
     }
 
@@ -59,13 +60,12 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
 
                         if (t.status == MenuApi.SUCCESS) {
 
-                            Log.d("getMenu", t.toString())
-                            val results: ArrayList<MenuManagementActivity.MenuData> = ArrayList()
+                            val results: ArrayList<DataModel.MenuData> = ArrayList()
 
                             for (i in t.results!!.indices) {
 
                                 results.add(
-                                        MenuManagementActivity.MenuData(
+                                        DataModel.MenuData(
                                                 t.results[i].menuCode,
                                                 t.results[i].menuName.toString(),
                                                 t.results[i].menuIngredients.toString(),
@@ -77,7 +77,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                             mView!!.setMenuInfo(results)
                         } else if (t.status == MenuApi.ERROR_NONE_DATA) {
 
-                            val results: ArrayList<MenuManagementActivity.MenuData> = ArrayList()
+                            val results: ArrayList<DataModel.MenuData> = ArrayList()
                             mView!!.setMenuInfo(results)
                         }
                     }
@@ -99,12 +99,12 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                         Log.d("getStock", t.toString())
                         if (t.status == StockApi.SUCCESS) {
 
-                            val results: ArrayList<MenuManagementActivity.StockData> = ArrayList()
+                            val results: ArrayList<DataModel.StockData> = ArrayList()
 
                             for (result: StockModel in t.results!!) {
 
                                 results.add(
-                                        MenuManagementActivity.StockData(
+                                        DataModel.StockData(
                                             result.stockCode,
                                             result.stockName,
                                             result.stockAmount
@@ -115,7 +115,7 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
                             mView!!.setStock(results)
                         } else if (t.status ==StockApi.ERROR_NONE_DATA) {
 
-                            val results: ArrayList<MenuManagementActivity.StockData> = ArrayList()
+                            val results: ArrayList<DataModel.StockData> = ArrayList()
                             mView!!.setStock(results)
                         }
                     }

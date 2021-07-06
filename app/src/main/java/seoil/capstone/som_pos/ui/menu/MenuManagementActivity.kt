@@ -10,13 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.*
 import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
+import seoil.capstone.som_pos.data.model.DataModel
 import seoil.capstone.som_pos.data.network.model.MenuModel
 import seoil.capstone.som_pos.data.network.model.StockModel
 import seoil.capstone.som_pos.util.Utility
@@ -37,8 +37,8 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
     private var mShopId: String? = null
     private var mSelectedTab: Int? = null
 
-    private var mMenuData: ArrayList<MenuData>? = null
-    private var mStockData: ArrayList<StockData>? = null
+    private var mMenuData: ArrayList<DataModel.MenuData>? = null
+    private var mStockData: ArrayList<DataModel.StockData>? = null
 
     private var mAlertDialog: AlertDialog? = null
 
@@ -76,7 +76,7 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
 
         initCoroutine()
 
-        mMenuAdapter = MenuManagementMenuAdapter(mMenuData!!, mPresenter!!, mShopId!!, this)
+        mMenuAdapter = MenuManagementMenuAdapter(mMenuData!!, mPresenter!!, this)
         mStockAdapter = MenuManagementStockAdapter(mStockData!!, mPresenter!!, mShopId!!, this)
         mMenuInsertStockAdapter = MenuManagementMenuInsertStockAdapter(mStockData)
 
@@ -153,12 +153,12 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         })
     }
 
-    override fun setMenuInfo(menuInfo: ArrayList<MenuData>) {
+    override fun setMenuInfo(menuInfo: ArrayList<DataModel.MenuData>) {
         mMenuData = menuInfo
         mMenuAdapter!!.setData(mMenuData!!)
     }
 
-    override fun setStock(stockData: ArrayList<StockData>) {
+    override fun setStock(stockData: ArrayList<DataModel.StockData>) {
         mStockData = stockData
         mStockAdapter!!.setData(mStockData!!)
     }
@@ -171,7 +171,7 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         mPresenter!!.getStock(mShopId!!)
     }
 
-    override fun getStock(): ArrayList<StockData>? {
+    override fun getStock(): ArrayList<DataModel.StockData>? {
         return mStockData
     }
 
@@ -409,7 +409,4 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         mAlertDialog = builder.create()
         mAlertDialog!!.show()
     }
-
-    data class MenuData(var menuCode: Int?, var menuName: String?, var menuIngredients: String?, var menuPrice: Int?)
-    data class StockData(var stockCode: Int?, var stockName: String?, var stockAmount: Int?)
 }
