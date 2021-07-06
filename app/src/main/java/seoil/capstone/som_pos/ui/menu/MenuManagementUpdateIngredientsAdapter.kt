@@ -72,7 +72,7 @@ class MenuManagementUpdateIngredientsAdapter(
         return temp.toString()
     }
 
-    private fun setData(stockData: ArrayList<DataModel.StockData>?) {
+    fun setData(stockData: ArrayList<DataModel.StockData>?) {
 
         if (this.stockData != null) {
 

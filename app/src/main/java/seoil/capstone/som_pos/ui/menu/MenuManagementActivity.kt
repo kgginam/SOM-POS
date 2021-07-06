@@ -224,14 +224,15 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         }
     }
 
-    private fun createAlert(position: Int) {
+    override fun createAlert(type: Int, position: Int) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("삭제 확인")
                 .setMessage("삭제하시겠습니까?")
                 .setCancelable(false)
                 .setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
 
-                    when (mSelectedTab) {
+                    when (type) {
+
                         SELECTED_MENU -> {
 
                             mPresenter!!.deleteMenu(mMenuData!![position].menuCode!!)

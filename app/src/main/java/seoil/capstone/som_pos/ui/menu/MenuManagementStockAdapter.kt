@@ -72,11 +72,9 @@ class MenuManagementStockAdapter(
             fun onMenuItemClick(item: MenuItem): Boolean {
 
                 when (item.itemId) {
-                    ADAPTER_DELETE -> mPresenter.deleteStock(
-                            mShopId,
-                            mStockList!![adapterPosition].stockCode!!,
-                            mStockList!![adapterPosition].stockName!!
-                    )
+
+                    ADAPTER_DELETE -> mPresenter.createAlert(1, adapterPosition)
+
                     ADAPTER_EDIT -> {
                         if (mAlertDialog != null) {
                             mAlertDialog!!.dismiss()
@@ -116,6 +114,7 @@ class MenuManagementStockAdapter(
                             }
                         }
                     }
+
                     else -> {
 
                     }
