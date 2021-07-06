@@ -51,11 +51,16 @@ class MenuManagementUpdateIngredientsAdapter(
 
         val temp: StringBuilder = StringBuilder()
 
+        var isFirst: Boolean = true
+
         for (i in stockData!!.indices) {
 
-            if (ingredientsData!![i].stockAmount != 0) {
+            if (ingredientsData!![i].stockAmount!! > 0) {
 
-                if (i != 0) {
+                if (isFirst) {
+
+                    isFirst = false
+                } else {
 
                     temp.append(",")
                 }
@@ -67,7 +72,7 @@ class MenuManagementUpdateIngredientsAdapter(
         return temp.toString()
     }
 
-    fun setData(stockData: ArrayList<DataModel.StockData>?) {
+    private fun setData(stockData: ArrayList<DataModel.StockData>?) {
 
         if (this.stockData != null) {
 

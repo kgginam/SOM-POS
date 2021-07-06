@@ -40,8 +40,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
 
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         val app: GlobalApplication = applicationContext as GlobalApplication
         mPresenter!!.getShopInformation(app.getUserId())
