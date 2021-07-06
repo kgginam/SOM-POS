@@ -8,13 +8,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import seoil.capstone.som_pos.R
+import seoil.capstone.som_pos.data.model.DataModel
 import java.lang.StringBuilder
 
 class MenuManagementMenuInsertStockAdapter(
-        stockData: ArrayList<MenuManagementActivity.StockData>?
+        stockData: ArrayList<DataModel.StockData>?
 ) : RecyclerView.Adapter<MenuManagementMenuInsertStockAdapter.ViewHolder>() {
 
-    private var stockData: ArrayList<MenuManagementActivity.StockData>? = null
+    private var stockData: ArrayList<DataModel.StockData>? = null
     private var countData: ArrayList<Int>? = null
 
     init {
@@ -69,15 +70,15 @@ class MenuManagementMenuInsertStockAdapter(
         return temp.toString()
     }
 
-    fun setData(data: ArrayList<MenuManagementActivity.StockData>?) {
+    fun setData(data: ArrayList<DataModel.StockData>?) {
 
-        if (stockData != null || stockData!!.size == 0) {
+        if (stockData != null) {
 
             stockData!!.clear()
         }
         stockData = data
 
-        if (countData != null || countData!!.size == 0) {
+        if (countData != null) {
 
             countData!!.clear()
         }

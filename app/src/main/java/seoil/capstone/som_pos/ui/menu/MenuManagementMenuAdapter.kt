@@ -10,16 +10,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import seoil.capstone.som_pos.R
-import seoil.capstone.som_pos.data.network.model.MenuModel
+import seoil.capstone.som_pos.data.model.DataModel
 
 class MenuManagementMenuAdapter(
-        private val menuList: ArrayList<MenuManagementActivity.MenuData>,
+        private val menuList: ArrayList<DataModel.MenuData>,
         private val mPresenter: MenuManagementPresenter,
-        private val mShopId: String,
         private val mContext: Context
 ): RecyclerView.Adapter<MenuManagementMenuAdapter.ViewHolder>() {
 
-    private var mMenuList: ArrayList<MenuManagementActivity.MenuData>? = null
+    private var mMenuList: ArrayList<DataModel.MenuData>? = null
     private var mAlertDialog: AlertDialog? = null
 
     companion object {
@@ -55,7 +54,7 @@ class MenuManagementMenuAdapter(
         return mMenuList!!.size
     }
 
-    fun setData(menuList: ArrayList<MenuManagementActivity.MenuData>) {
+    fun setData(menuList: ArrayList<DataModel.MenuData>) {
         if (mMenuList != null) {
             mMenuList!!.clear()
         }
