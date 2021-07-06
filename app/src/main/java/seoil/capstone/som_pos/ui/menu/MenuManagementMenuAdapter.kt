@@ -73,7 +73,8 @@ class MenuManagementMenuAdapter(
             fun onMenuItemClick(item: MenuItem): Boolean {
 
                 when(item.itemId) {
-                    ADAPTER_DELETE -> mPresenter.deleteMenu(mMenuList!![adapterPosition].menuCode!!)
+
+                    ADAPTER_DELETE -> mPresenter.createAlert(0, adapterPosition)
 
                     ADAPTER_EDIT -> {
                         if (mAlertDialog != null) {
@@ -146,6 +147,7 @@ class MenuManagementMenuAdapter(
                         mAlertDialog = builder.create()
                         mAlertDialog!!.show()
                     }
+
                     else -> {
 
                     }

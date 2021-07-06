@@ -45,6 +45,10 @@ class MenuManagementPresenter: MenuManagementContract.Presenter {
         return mView!!.getIngredients(position)
     }
 
+    override fun createAlert(type: Int, position: Int) {
+        mView!!.createAlert(type, position)
+    }
+
     fun isNumeric(str: String): Boolean {
         for (i in str.indices) {
 
