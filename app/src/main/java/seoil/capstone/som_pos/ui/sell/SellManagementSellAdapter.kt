@@ -29,10 +29,7 @@ class SellManagementSellAdapter(
 
         if (mMenuData != null) {
 
-            for (i in mMenuData!!.indices) {
-
-                mCountData!!.add(0)
-            }
+            initCountData()
         }
     }
 
@@ -101,16 +98,28 @@ class SellManagementSellAdapter(
 
         if (mMenuData != null) {
 
-            if (mCountData != null) {
-
-                for (i in mMenuData!!.indices) {
-
-                    mCountData!!.add(0)
-                }
-            }
+            initCountData()
         }
 
         notifyDataSetChanged()
+    }
+
+    fun initCountData() {
+
+        if (mCountData != null) {
+
+            mCountData!!.clear()
+        }
+
+        for (i in mMenuData!!.indices) {
+
+            mCountData!!.add(0)
+        }
+    }
+
+    fun getCountData(): ArrayList<Int>? {
+
+        return mCountData
     }
 
     fun setMenuMaxData(menuMaxCount: ArrayList<DataModel.MenuMaxCount>?) {

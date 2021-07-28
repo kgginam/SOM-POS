@@ -4,10 +4,10 @@ import android.util.Log
 import seoil.capstone.som_pos.data.model.DataModel
 import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.api.MenuApi
+import seoil.capstone.som_pos.data.network.api.PaymentApi
 import seoil.capstone.som_pos.data.network.api.StockApi
-import seoil.capstone.som_pos.data.network.model.MenuRes
-import seoil.capstone.som_pos.data.network.model.StockModel
-import seoil.capstone.som_pos.data.network.model.StockRes
+import seoil.capstone.som_pos.data.network.model.*
+import java.lang.StringBuilder
 
 class SellManagementPresenter: SellManagementContract.Presenter{
 
@@ -39,6 +39,43 @@ class SellManagementPresenter: SellManagementContract.Presenter{
             return false
         }
         return true
+    }
+
+    fun getTotalIngredients(menuList: ArrayList<DataModel.MenuData>?, countList: ArrayList<Int>?): String {
+
+        val result = StringBuilder("")
+        var isFirst: Boolean = true
+
+        for (i in menuList!!.indices) {
+
+            if (!isTextSet(menuList[i].menuIngredients)) {
+
+                continue
+            } else if (countList!![i] == 0) {
+
+                continue
+            } else {
+
+                val firstSplit: List<String> = menuList[i].menuIngredients!!.split(",")
+
+                for (j in firstSplit.indices) {
+
+                    if (isFirst) {
+
+                        isFirst = false
+                    } else {
+
+                        result.append(",")
+                    }
+                    val secondSplit = firstSplit[j].split(":")
+
+                    result.append(secondSplit[0])
+                    result.append(":" + (secondSplit[1].toInt() * countList!![i]))
+                }
+            }
+        }
+
+        return result.toString()
     }
 
     fun getMenuMaxCount(ingredients: String, stockData: ArrayList<DataModel.StockData>?): Int {
@@ -74,6 +111,8 @@ class SellManagementPresenter: SellManagementContract.Presenter{
             return min
         }
     }
+
+
 
     fun getMenuInfo(shopId: String) {
 
@@ -148,5 +187,34 @@ class SellManagementPresenter: SellManagementContract.Presenter{
                 }
 
         mInteractor!!.getStock(shopId, callback)
+    }
+
+    fun pay(req: PaymentModel) {
+
+        val onFinishApiListener: OnFinishApiListener<Status> =
+                object: OnFinishApiListener<Status> {
+                    override fun onSuccess(t: Status) {
+
+                        when (t.status) {
+
+                            PaymentApi.SUCCESS -> {
+
+                                mView!!.showDialog("결제 완료 되었습니다.")
+                            }
+
+                            else -> {
+
+                                mView!!.showDialog("서버 오류입니다. 다시 시도해주세요")
+                            }
+                        }
+                    }
+
+                    override fun onFailure(t: Throwable?) {
+                        Log.d("pay", t.toString())
+                    }
+
+                }
+
+        mInteractor!!.pay(req, onFinishApiListener)
     }
 }
