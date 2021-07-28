@@ -22,7 +22,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
     private var mBtnMenu: Button? = null
     private var mBtnSell: Button? = null
     private var mPresenter: MainPresenter? = null
-    private var isEnd: Boolean = false
+    private var isSet: Boolean = false
     private var mDialog: Dialog? = null
 
 
@@ -44,8 +44,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
         super.onResume()
 
         val app: GlobalApplication = applicationContext as GlobalApplication
-        isEnd = mPresenter!!.isTextSet(app.getCategory())
-        if (!isEnd) {
+        isSet = mPresenter!!.isTextSet(app.getCategory())
+        if (!isSet) {
 
             mPresenter!!.getShopInformation(app.getUserId())
         }
@@ -75,7 +75,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
         val id = v!!.id
         var intent: Intent? = null
 
-        if(!isEnd) {
+        if(!isSet) {
 
             onResume()
             Toast.makeText(this, "잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show()
@@ -101,7 +101,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
     override fun setGlobalData(category: String) {
         val app: GlobalApplication = applicationContext as GlobalApplication
         app.setCategory(category)
-        isEnd = true
+        isSet = true
     }
 
     override fun showProgress() {
