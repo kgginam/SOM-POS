@@ -2,6 +2,10 @@ package seoil.capstone.som_pos.ui.sell
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Layout
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -12,6 +16,7 @@ import kotlinx.coroutines.*
 import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.model.DataModel
+import seoil.capstone.som_pos.data.network.model.PaymentModel
 import seoil.capstone.som_pos.util.Utility
 
 class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
@@ -29,7 +34,7 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
     private var mJob: Job? = null
     private var mShopId: String? = null
     private var mApp: GlobalApplication? = null
-    private var mTotalPrice: Int? = null
+    private var mTotalPrice: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,11 +83,11 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
             if (countList[i] > 0) {
 
-                mTotalPrice = mTotalPrice!! +  (mMenuData!![i].menuPrice!! * countList[i])
+                mTotalPrice += (mMenuData!![i].menuPrice!! * countList[i])
             }
         }
 
-        val temp: String = mTotalPrice!!.toString() + "원"
+        val temp: String = mTotalPrice.toString() + "원"
         mTextViewTotalPrice!!.text = temp
     }
 
@@ -102,6 +107,11 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         }
 
         mSellAdapter!!.setMenuMaxData(menuMaxCount)
+    }
+
+    override fun initCountData() {
+
+        mSellAdapter!!.initCountData()
     }
 
 
@@ -139,6 +149,60 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
         mImageViewPurchase!!.setOnClickListener {
 
+            if (mTotalPrice == 0) {
+
+                showDialog("메뉴를 선택해주세요")
+            } else {
+
+                if (mAlertDialog != null) {
+
+                    mAlertDialog!!.dismiss()
+                }
+
+                val builder = AlertDialog.Builder(this)
+                val view = LayoutInflater.from(this).inflate(R.layout.dialog_get_user_id, null, false)
+                builder.setView(view)
+                val editTextId = view.findViewById<EditText>(R.id.editTextGetId)
+                val btnCancel: Button = view.findViewById(R.id.btnGetUserIdCancel)
+
+                btnCancel.setOnClickListener {
+
+                    mPresenter!!.pay(
+                            PaymentModel(
+                                    -1,
+                                    "",
+                                    "",
+                                    mShopId,
+                                    mPresenter!!.getTotalIngredients(mMenuData, mSellAdapter!!.getCountData()),
+                                    (mTotalPrice * 0.3).toInt(),
+                                    mTotalPrice
+                            )
+                    )
+                    mAlertDialog!!.dismiss()
+                }
+
+                val btnSubmit: Button = view.findViewById(R.id.btnGetUserIdSubmit)
+
+                btnSubmit.setOnClickListener {
+
+                    mPresenter!!.pay(
+                            PaymentModel(
+                                    -1,
+                                    "",
+                                    editTextId.text.toString(),
+                                    mShopId,
+                                    mPresenter!!.getTotalIngredients(mMenuData, mSellAdapter!!.getCountData()),
+                                    (mTotalPrice * 0.3).toInt(),
+                                    mTotalPrice
+                            )
+                    )
+
+                    mAlertDialog!!.dismiss()
+                }
+
+                mAlertDialog = builder.create()
+                mAlertDialog!!.show()
+            }
         }
     }
 
