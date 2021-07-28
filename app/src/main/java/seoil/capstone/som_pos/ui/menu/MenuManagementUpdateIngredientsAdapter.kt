@@ -76,7 +76,7 @@ class MenuManagementUpdateIngredientsAdapter(
 
         if (this.stockData != null) {
 
-            stockData!!.clear()
+            this.stockData!!.clear()
         }
 
         this.stockData = stockData
