@@ -14,6 +14,7 @@ import kotlinx.coroutines.*
 import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.model.DataModel
+import seoil.capstone.som_pos.data.network.model.StockModel
 import seoil.capstone.som_pos.util.Utility
 
 class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
@@ -27,6 +28,7 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
     private var mImageViewPurchase: ImageView? = null
     private var mSellAdapter: SellManagementSellAdapter? = null
     private var mMenuData: ArrayList<DataModel.MenuData>? = null
+    private var mStockData: ArrayList<DataModel.StockData>? = null
     private var mJob: Job? = null
     private var mShopId: String? = null
     private var mApp: GlobalApplication? = null
@@ -51,9 +53,10 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         mSellAdapter = SellManagementSellAdapter(mMenuData, mPresenter!!)
         mRecyclerView!!.adapter = mSellAdapter
 
-        initCoroutine()
-
         mMenuData = ArrayList()
+        mStockData = ArrayList()
+
+        initCoroutine()
     }
 
     override fun onDestroy() {
@@ -84,6 +87,23 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
         val temp: String = mTotalPrice!!.toString() + "원"
         mTextViewTotalPrice!!.text = temp
+    }
+
+    override fun setStock(stockList: ArrayList<DataModel.StockData>) {
+        mStockData = stockList
+
+        if (mMenuData == null) {
+            return
+        }
+
+        val menuMaxCount: ArrayList<DataModel.MenuMaxCount> = ArrayList()
+
+        for (i in mMenuData!!.indices) {
+
+            menuMaxCount.add(DataModel.MenuMaxCount(mMenuData!![i].menuCode, mPresenter!!.getMenuMaxCount(mMenuData!![i].menuIngredients!!, mStockData)))
+        }
+
+        mSellAdapter!!.setMenuMaxData(menuMaxCount)
     }
 
 
@@ -131,9 +151,11 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
             repeat(100_000) { i ->
                 yield()
                 mPresenter!!.getMenuInfo(mShopId!!)
-
+                mPresenter!!.getStock(mShopId!!)
                 delay(mDelayTime)
             }
         }
     }
+
+
 }
