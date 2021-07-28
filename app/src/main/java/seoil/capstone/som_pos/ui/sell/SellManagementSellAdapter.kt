@@ -70,7 +70,7 @@ class SellManagementSellAdapter(
                         .newEditable(mCountData!![holder.adapterPosition].toString())
 
                 mPresenter!!.initTotalPrice(mCountData!!)
-            }else if (mCountData!![holder.adapterPosition] < mMenuMaxCount!![holder.adapterPosition].menuAmount!!.toInt()) {
+            } else if (mCountData!![holder.adapterPosition] < mMenuMaxCount!![holder.adapterPosition].menuAmount!!.toInt()) {
 
                 mCountData!![holder.adapterPosition] = mCountData!![holder.adapterPosition] + 1
                 holder.editTextMenuCount.text = Editable.Factory.getInstance()

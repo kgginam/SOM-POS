@@ -83,7 +83,6 @@ class SellManagementPresenter: SellManagementContract.Presenter{
 
                         if (t.status == MenuApi.SUCCESS) {
 
-                            Log.d("getMenu", t.toString())
                             val results: ArrayList<DataModel.MenuData> = ArrayList()
 
                             for (i in t.results!!.indices) {
@@ -120,7 +119,6 @@ class SellManagementPresenter: SellManagementContract.Presenter{
                 object: OnFinishApiListener<StockRes> {
                     override fun onSuccess(t: StockRes) {
 
-                        Log.d("getStock", t.toString())
                         if (t.status == StockApi.SUCCESS) {
 
                             val results: ArrayList<DataModel.StockData> = ArrayList()

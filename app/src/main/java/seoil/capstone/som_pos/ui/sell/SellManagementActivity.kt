@@ -2,9 +2,7 @@ package seoil.capstone.som_pos.ui.sell
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +12,6 @@ import kotlinx.coroutines.*
 import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.model.DataModel
-import seoil.capstone.som_pos.data.network.model.StockModel
 import seoil.capstone.som_pos.util.Utility
 
 class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
