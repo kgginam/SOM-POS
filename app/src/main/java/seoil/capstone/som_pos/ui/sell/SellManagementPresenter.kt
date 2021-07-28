@@ -135,7 +135,7 @@ class SellManagementPresenter: SellManagementContract.Presenter{
                             }
 
                             mView!!.setStock(results)
-                        } else if (t.status ==StockApi.ERROR_NONE_DATA) {
+                        } else if (t.status == StockApi.ERROR_NONE_DATA) {
 
                             val results: ArrayList<DataModel.StockData> = ArrayList()
                             mView!!.setStock(results)
