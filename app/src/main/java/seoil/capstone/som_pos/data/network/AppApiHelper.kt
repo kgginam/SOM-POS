@@ -16,10 +16,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import seoil.capstone.som_pos.R
-import seoil.capstone.som_pos.data.network.api.LoginApi
-import seoil.capstone.som_pos.data.network.api.MenuApi
-import seoil.capstone.som_pos.data.network.api.ShopApi
-import seoil.capstone.som_pos.data.network.api.StockApi
+import seoil.capstone.som_pos.data.network.api.*
 import seoil.capstone.som_pos.data.network.model.*
 
 
@@ -34,6 +31,7 @@ class AppApiHelper {
     private var mMenuApi: MenuApi
     private var mStockApi: StockApi
     private var mShopApi: ShopApi
+    private var mPaymentApi: PaymentApi
 
     init {
 
@@ -47,6 +45,7 @@ class AppApiHelper {
         mMenuApi = MenuApi(retrofit)
         mStockApi = StockApi(retrofit)
         mShopApi = ShopApi(retrofit)
+        mPaymentApi = PaymentApi(retrofit)
     }
 
     companion object {
@@ -264,5 +263,17 @@ class AppApiHelper {
     //매장 카테고리 요청
     fun getShopCategory(shopId: String, onFinishApiListener: OnFinishApiListener<ShopRes>) {
         mShopApi.getShopCategory(shopId, onFinishApiListener)
+    }
+
+    fun getPayment(memberId: String, onFinishApiListener: OnFinishApiListener<PaymentRes>) {
+        mPaymentApi.getPayment(memberId, onFinishApiListener)
+    }
+
+    fun pay(req: PaymentModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        mPaymentApi.pay(req, onFinishApiListener)
+    }
+
+    fun cancel(req: PaymentModel, onFinishApiListener: OnFinishApiListener<Status>) {
+        mPaymentApi.cancel(req, onFinishApiListener)
     }
 }
