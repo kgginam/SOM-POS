@@ -22,7 +22,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
     private var mBtnMenu: Button? = null
     private var mBtnSell: Button? = null
     private var mPresenter: MainPresenter? = null
-    private var isEnd: Boolean? = false
+    private var isSet: Boolean = false
     private var mDialog: Dialog? = null
 
 
@@ -44,7 +44,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
         super.onResume()
 
         val app: GlobalApplication = applicationContext as GlobalApplication
-        mPresenter!!.getShopInformation(app.getUserId())
+        isSet = mPresenter!!.isTextSet(app.getCategory())
+        if (!isSet) {
+
+            mPresenter!!.getShopInformation(app.getUserId())
+        }
     }
 
     override fun onDestroy() {
@@ -71,8 +75,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
         val id = v!!.id
         var intent: Intent? = null
 
-        if(!isEnd!!) {
+        if(!isSet) {
 
+            onResume()
             Toast.makeText(this, "잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show()
             return
         }
@@ -96,15 +101,15 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
     override fun setGlobalData(category: String) {
         val app: GlobalApplication = applicationContext as GlobalApplication
         app.setCategory(category)
-        isEnd = true
+        isSet = true
     }
 
     override fun showProgress() {
-        //TODO("Not yet implemented")
+
     }
 
     override fun hideProgress() {
-        //TODO("Not yet implemented")
+
     }
 
     override fun showDialog(msg: String?) {
