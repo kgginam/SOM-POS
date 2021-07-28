@@ -21,6 +21,7 @@ class SellManagementSellAdapter(
     private var mPresenter: SellManagementPresenter? = null
 
     init {
+
         mMenuData = menuList
         this.mPresenter = mPresenter
 
@@ -47,7 +48,6 @@ class SellManagementSellAdapter(
         holder.editTextMenuName.text = Editable.Factory.getInstance().newEditable(mMenuData!![holder.adapterPosition].menuName)
         holder.editTextMenuPrice.text = Editable.Factory.getInstance().newEditable(mMenuData!![holder.adapterPosition].menuPrice.toString() + "원")
         holder.editTextMenuCount.text = Editable.Factory.getInstance().newEditable(mCountData!![holder.adapterPosition].toString())
-
 
         holder.imageViewMinus.setOnClickListener {
 

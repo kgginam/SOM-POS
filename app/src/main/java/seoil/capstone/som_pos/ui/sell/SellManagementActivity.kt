@@ -90,6 +90,7 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         mStockData = stockList
 
         if (mMenuData == null) {
+
             return
         }
 
@@ -153,6 +154,4 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
             }
         }
     }
-
-
 }
