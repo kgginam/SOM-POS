@@ -181,11 +181,11 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
     }
 
     override fun showProgress() {
-        //TODO("Not yet implemented")
+
     }
 
     override fun hideProgress() {
-        //TODO("Not yet implemented")
+
     }
 
     override fun showDialog(msg: String?) {

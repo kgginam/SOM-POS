@@ -26,17 +26,23 @@ class MainPresenter: MainContract.Presenter {
         mInteractor = null
     }
 
+    fun isTextSet(str: String?): Boolean {
+        if (str == null || str == "" || str.isEmpty()) {
+
+            return false
+        }
+        return true
+    }
+
     fun getShopInformation(shopId : String) {
 
         val callback : OnFinishApiListener<ShopRes> =
             object : OnFinishApiListener<ShopRes> {
                 override fun onSuccess(t: ShopRes) {
 
-                    Log.d("MainPresenter", t.toString())
                     if (t.status == ShopApi.SUCCESS) {
 
                         mView!!.setGlobalData(t.results[0].shopCategory.toString())
-                        Log.d("MainPresenter", t.results[0].shopCategory.toString())
                     } else if (t.status == ShopApi.ERROR) {
 
                         mView!!.showDialog("서버 오류 입니다. 다시 시도해주세요")
