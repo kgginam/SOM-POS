@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="메뉴 관리"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnMainSellManagement"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,8 +25,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="판매"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnMainPayment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMainMenuManagement" />
+
+    <Button
+        android:id="@+id/btnMainPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="결제 내역"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMainMenuManagement"/>
+        app:layout_constraintTop_toBottomOf="@+id/btnMainSellManagement" />
 </androidx.constraintlayout.widget.ConstraintLayout>

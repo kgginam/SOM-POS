@@ -8,12 +8,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.ui.menu.MenuManagementActivity
+import seoil.capstone.som_pos.ui.payment.PaymentActivity
 import seoil.capstone.som_pos.ui.sell.SellManagementActivity
 import seoil.capstone.som_pos.util.Utility
 
@@ -21,6 +19,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
 
     private var mBtnMenu: Button? = null
     private var mBtnSell: Button? = null
+    private var mBtnPayment: Button? = null
     private var mPresenter: MainPresenter? = null
     private var isSet: Boolean = false
     private var mDialog: Dialog? = null
@@ -62,13 +61,14 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
 
         mBtnMenu = findViewById(R.id.btnMainMenuManagement)
         mBtnSell = findViewById(R.id.btnMainSellManagement)
+        mBtnPayment = findViewById(R.id.btnMainPayment)
     }
 
     private fun initListener() {
 
-
         mBtnMenu!!.setOnClickListener(this)
         mBtnSell!!.setOnClickListener(this)
+        mBtnPayment!!.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -90,6 +90,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener, MainContract.View
         if (id == R.id.btnMainSellManagement) {
 
             intent = Intent(this, SellManagementActivity::class.java)
+        }
+
+        if (id == R.id.btnMainPayment) {
+
+            intent = Intent(this, PaymentActivity::class.java)
         }
 
         if (intent != null) {

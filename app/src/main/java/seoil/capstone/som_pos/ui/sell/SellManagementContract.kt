@@ -15,7 +15,7 @@ interface SellManagementContract {
         fun setMenuInfo(menuList: ArrayList<DataModel.MenuData>)
         fun initTotalPrice(countList: ArrayList<Int>)
         fun setStock(stockList: ArrayList<DataModel.StockData>)
-        fun initCountData()
+        fun finishActivity(msg: String)
     }
 
     interface Presenter: BaseContract.Presenter<View> {
