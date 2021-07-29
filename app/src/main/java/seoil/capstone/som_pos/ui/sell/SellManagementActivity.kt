@@ -21,8 +21,6 @@ import seoil.capstone.som_pos.util.Utility
 
 class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
-    private val mDelayTime = 60L * 5L * 1000L
-
     private var mPresenter: SellManagementPresenter? = null
     private var mAlertDialog: AlertDialog? = null
     private var mRecyclerView: RecyclerView? = null
@@ -31,7 +29,6 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
     private var mSellAdapter: SellManagementSellAdapter? = null
     private var mMenuData: ArrayList<DataModel.MenuData>? = null
     private var mStockData: ArrayList<DataModel.StockData>? = null
-    private var mJob: Job? = null
     private var mShopId: String? = null
     private var mApp: GlobalApplication? = null
     private var mTotalPrice: Int = 0
@@ -58,11 +55,11 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         mMenuData = ArrayList()
         mStockData = ArrayList()
 
-        initCoroutine()
+        mPresenter!!.getMenuInfo(mShopId!!)
+        mPresenter!!.getStock(mShopId!!)
     }
 
     override fun onDestroy() {
-        mJob!!.cancel()
 
         mPresenter!!.releaseInteractor()
         mPresenter!!.releaseView()
@@ -111,7 +108,11 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
     override fun initCountData() {
 
+        mTotalPrice = 0
+        val temp: String = mTotalPrice.toString() + "원"
+        mTextViewTotalPrice!!.text = temp
         mSellAdapter!!.initCountData()
+        mPresenter!!.getStock(mShopId!!)
     }
 
 
@@ -174,7 +175,7 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
                                     "",
                                     mShopId,
                                     mPresenter!!.getTotalIngredients(mMenuData, mSellAdapter!!.getCountData()),
-                                    (mTotalPrice * 0.3).toInt(),
+                                    0,
                                     mTotalPrice
                             )
                     )
@@ -202,19 +203,6 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
                 mAlertDialog = builder.create()
                 mAlertDialog!!.show()
-            }
-        }
-    }
-
-    private fun initCoroutine() {
-
-        mJob = CoroutineScope(Dispatchers.Default).launch {
-
-            repeat(100_000) { i ->
-                yield()
-                mPresenter!!.getMenuInfo(mShopId!!)
-                mPresenter!!.getStock(mShopId!!)
-                delay(mDelayTime)
             }
         }
     }
