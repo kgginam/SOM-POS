@@ -2,17 +2,12 @@ package seoil.capstone.som_pos.ui.sell
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.Layout
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.*
 import seoil.capstone.som_pos.GlobalApplication
 import seoil.capstone.som_pos.R
 import seoil.capstone.som_pos.data.model.DataModel
@@ -106,13 +101,9 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         mSellAdapter!!.setMenuMaxData(menuMaxCount)
     }
 
-    override fun initCountData() {
-
-        mTotalPrice = 0
-        val temp: String = mTotalPrice.toString() + "원"
-        mTextViewTotalPrice!!.text = temp
-        mSellAdapter!!.initCountData()
-        mPresenter!!.getStock(mShopId!!)
+    override fun finishActivity(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        finish()
     }
 
 

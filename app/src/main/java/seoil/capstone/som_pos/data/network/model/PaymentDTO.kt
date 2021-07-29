@@ -10,7 +10,7 @@ data class PaymentRes (
     val status: Int?,
     @SerializedName("results")
     @Expose
-    val results: List<ShopModel>
+    val results: List<PaymentModel>
 )
 
 data class PaymentModel (

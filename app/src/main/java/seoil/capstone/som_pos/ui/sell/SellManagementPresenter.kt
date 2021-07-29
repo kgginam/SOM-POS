@@ -112,8 +112,6 @@ class SellManagementPresenter: SellManagementContract.Presenter{
         }
     }
 
-
-
     fun getMenuInfo(shopId: String) {
 
         val callback: OnFinishApiListener<MenuRes> =
@@ -199,13 +197,12 @@ class SellManagementPresenter: SellManagementContract.Presenter{
 
                             PaymentApi.SUCCESS -> {
 
-                                mView!!.showDialog("결제 완료 되었습니다.")
-                                mView!!.initCountData()
+                                mView!!.finishActivity("결제 완료 되었습니다.")
                             }
 
                             else -> {
 
-                                mView!!.showDialog("서버 오류입니다. 다시 시도해주세요")
+                                mView!!.finishActivity("서버 오류입니다. 다시 시도해주세요")
                             }
                         }
                     }
