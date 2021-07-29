@@ -115,6 +115,8 @@ class SellManagementSellAdapter(
 
             mCountData!!.add(0)
         }
+
+        notifyDataSetChanged()
     }
 
     fun getCountData(): ArrayList<Int>? {

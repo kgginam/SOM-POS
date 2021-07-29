@@ -200,6 +200,7 @@ class SellManagementPresenter: SellManagementContract.Presenter{
                             PaymentApi.SUCCESS -> {
 
                                 mView!!.showDialog("결제 완료 되었습니다.")
+                                mView!!.initCountData()
                             }
 
                             else -> {
