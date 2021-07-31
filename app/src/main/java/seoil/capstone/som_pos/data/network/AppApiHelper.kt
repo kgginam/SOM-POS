@@ -52,7 +52,8 @@ class AppApiHelper {
 
     companion object {
 
-        @Volatile private var mAppApiHelper: AppApiHelper? = null
+        @Volatile
+        private var mAppApiHelper: AppApiHelper? = null
 
         fun getInstance(): AppApiHelper {
 
@@ -104,29 +105,29 @@ class AppApiHelper {
 
         // 카카오 로그인 콜백 함수 정의
         val callback: Function2<OAuthToken, Throwable, Unit> =
-            { oAuthToken: OAuthToken?, throwable: Throwable? ->
+                { oAuthToken: OAuthToken?, throwable: Throwable? ->
 
-                // 로그인 정상 수행
-                if (oAuthToken != null) {
-                    Log.d("API", "oAuth is available")
+                    // 로그인 정상 수행
+                    if (oAuthToken != null) {
+                        Log.d("API", "oAuth is available")
 
-                    // 카카오 로그인 사용자의 uid받아 서버에 보내 회원인지 확인
-                    UserApiClient.instance.me(true) { user: com.kakao.sdk.user.model.User?, throwable: Throwable? ->
+                        // 카카오 로그인 사용자의 uid받아 서버에 보내 회원인지 확인
+                        UserApiClient.instance.me(true) { user: com.kakao.sdk.user.model.User?, throwable: Throwable? ->
 
-                        // 카카오 유저가 정상적으로 있을 경우
-                        if (user != null) {
-                            onFinishApiListener.onSuccess(LoginDTO.KakaoLoginRes(user.id.toString()))
+                            // 카카오 유저가 정상적으로 있을 경우
+                            if (user != null) {
+                                onFinishApiListener.onSuccess(LoginDTO.KakaoLoginRes(user.id.toString()))
+                            }
                         }
                     }
-                }
 
-                // 로그인 실패
-                if (throwable != null) {
+                    // 로그인 실패
+                    if (throwable != null) {
 
-                    // 예외 처리
-                    Log.d("API", "throwable: $throwable")
+                        // 예외 처리
+                        Log.d("API", "throwable: $throwable")
+                    }
                 }
-            }
         // 카카오 어플 존재하는지 확인
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(context!!)) {
 
@@ -151,56 +152,56 @@ class AppApiHelper {
                 context, res.getString(R.string.naver_client_id), res.getString(R.string.naver_client_secret), res.getString(R.string.naver_client_name)
         )
         @SuppressLint("HandlerLeak") val oAuthLoginHandler: OAuthLoginHandler =
-            object: OAuthLoginHandler() {
-                override fun run(success: Boolean) {
-                    if (success) {
-                        val getDataThread: Thread = object: Thread() {
-                            override fun run() {
-                                val accessToken = oAuthLogin.getAccessToken(context)
-                                val naverLoginData = oAuthLogin.requestApi(
-                                        context,
-                                        accessToken,
-                                        "https://openapi.naver.com/v1/nid/me"
-                                )
-                                try {
-                                    val jsonResult =
-                                        JSONObject(naverLoginData).getJSONObject("response")
-                                    var gender = jsonResult.getString("gender")
-
-                                    // 성별이 알 수 없음 일 때
-                                    if (gender == "U") {
-
-                                        gender = "M"
-                                    }
-                                    onFinishApiListener.onSuccess(
-                                            LoginDTO.NaverLoginRes(
-                                                    jsonResult.getString("id"),
-                                                    jsonResult.getString("birthyear") + jsonResult.getString(
-                                                            "birthday"
-                                                    ).replace("-", ""),
-                                                    gender,
-                                                    jsonResult.getString("email"),
-                                                    jsonResult.getString("mobile").replace("-", "")
-                                            )
+                object : OAuthLoginHandler() {
+                    override fun run(success: Boolean) {
+                        if (success) {
+                            val getDataThread: Thread = object : Thread() {
+                                override fun run() {
+                                    val accessToken = oAuthLogin.getAccessToken(context)
+                                    val naverLoginData = oAuthLogin.requestApi(
+                                            context,
+                                            accessToken,
+                                            "https://openapi.naver.com/v1/nid/me"
                                     )
-                                } catch (e: JSONException) {
-                                    e.printStackTrace()
+                                    try {
+                                        val jsonResult =
+                                                JSONObject(naverLoginData).getJSONObject("response")
+                                        var gender = jsonResult.getString("gender")
+
+                                        // 성별이 알 수 없음 일 때
+                                        if (gender == "U") {
+
+                                            gender = "M"
+                                        }
+                                        onFinishApiListener.onSuccess(
+                                                LoginDTO.NaverLoginRes(
+                                                        jsonResult.getString("id"),
+                                                        jsonResult.getString("birthyear") + jsonResult.getString(
+                                                                "birthday"
+                                                        ).replace("-", ""),
+                                                        gender,
+                                                        jsonResult.getString("email"),
+                                                        jsonResult.getString("mobile").replace("-", "")
+                                                )
+                                        )
+                                    } catch (e: JSONException) {
+                                        e.printStackTrace()
+                                    }
                                 }
                             }
+                            getDataThread.start()
+                            try {
+                                getDataThread.join()
+                            } catch (e: InterruptedException) {
+                                e.printStackTrace()
+                            }
+                        } else {
+                            val errorCode =
+                                    oAuthLogin.getLastErrorCode(context).code
+                            val errorDesc = oAuthLogin.getLastErrorDesc(context)
                         }
-                        getDataThread.start()
-                        try {
-                            getDataThread.join()
-                        } catch (e: InterruptedException) {
-                            e.printStackTrace()
-                        }
-                    } else {
-                        val errorCode =
-                            oAuthLogin.getLastErrorCode(context).code
-                        val errorDesc = oAuthLogin.getLastErrorDesc(context)
                     }
                 }
-            }
 
         // OAuth로그인 핸들러 넘겨 수행
         oAuthLogin.startOauthLoginActivity(context as Activity?, oAuthLoginHandler)
