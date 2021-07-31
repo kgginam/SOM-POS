@@ -91,8 +91,8 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
 
     override fun createAlert(deleteData: PaymentModel) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("즐겨찾기 삭제 확인")
-            .setMessage("즐겨찾기한 매장을 삭제하시겠습니까?")
+        builder.setTitle("구매 취소 확인")
+            .setMessage("구매를 취소하시겠습니까?")
             .setCancelable(false)
             .setPositiveButton("확인") { dialog, which ->
                 mPresenter!!.cancel(deleteData)
