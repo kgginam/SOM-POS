@@ -5,6 +5,7 @@ import seoil.capstone.som_pos.data.model.DataModel
 import seoil.capstone.som_pos.data.network.OnFinishApiListener
 import seoil.capstone.som_pos.data.network.api.MenuApi
 import seoil.capstone.som_pos.data.network.api.PaymentApi
+import seoil.capstone.som_pos.data.network.api.PointApi
 import seoil.capstone.som_pos.data.network.api.StockApi
 import seoil.capstone.som_pos.data.network.model.*
 import java.lang.StringBuilder
@@ -38,6 +39,27 @@ class SellManagementPresenter: SellManagementContract.Presenter{
 
             return false
         }
+        return true
+    }
+
+    fun isNumeric(str: String): Boolean {
+        for (i in str.indices) {
+
+            if (str[i] < '0' || str[i] > '9') {
+
+                return false
+            }
+        }
+        return true
+    }
+
+    fun checkPoint(inputPoint: Int,maxPoint: Int): Boolean {
+
+        if (inputPoint > maxPoint) {
+
+            return false
+        }
+
         return true
     }
 
@@ -214,5 +236,38 @@ class SellManagementPresenter: SellManagementContract.Presenter{
                 }
 
         mInteractor!!.pay(req, onFinishApiListener)
+    }
+
+    fun getCurrentPoint(userId: String) {
+
+        val onFinishApiListener: OnFinishApiListener<GetCurrentRes> =
+                object: OnFinishApiListener<GetCurrentRes> {
+                    override fun onSuccess(t: GetCurrentRes) {
+
+                        when (t.status) {
+
+                            PointApi.SUCCESS -> {
+
+                                mView!!.setCurrentPoint(t.point)
+                            }
+
+                            PointApi.ERROR_NONE_DATA -> {
+
+                                mView!!.showDialog("손님 아이디만 입력해주세요")
+                            }
+
+                            else -> {
+
+                                mView!!.showDialog("서버 오류 입니다.")
+                            }
+                        }
+                    }
+
+                    override fun onFailure(t: Throwable?) {
+                        Log.d("currentPoint", t.toString())
+                    }
+                }
+
+        mInteractor!!.getCurrentPoint(userId, onFinishApiListener)
     }
 }

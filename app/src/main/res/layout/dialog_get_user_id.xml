@@ -34,10 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/black"
-        android:textColor="@color/white"
         android:text="적립"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnGetUserIdCancel"
+        app:layout_constraintStart_toEndOf="@+id/btnGetUserIdUsePoint"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutGetId" />
 
     <Button
@@ -46,9 +46,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/black"
-        android:textColor="@color/white"
         android:text="적립 안함"
-        app:layout_constraintEnd_toStartOf="@+id/btnGetUserIdSubmit"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/btnGetUserIdUsePoint"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutGetId" />
+
+    <Button
+        android:id="@+id/btnGetUserIdUsePoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
+        android:text="사용"
+        app:layout_constraintEnd_toStartOf="@+id/btnGetUserIdSubmit"
+        app:layout_constraintStart_toEndOf="@+id/btnGetUserIdCancel"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutGetId" />
 </androidx.constraintlayout.widget.ConstraintLayout>

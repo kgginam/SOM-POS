@@ -32,6 +32,7 @@ class AppApiHelper {
     private var mStockApi: StockApi
     private var mShopApi: ShopApi
     private var mPaymentApi: PaymentApi
+    private var mPointApi: PointApi
 
     init {
 
@@ -46,6 +47,7 @@ class AppApiHelper {
         mStockApi = StockApi(retrofit)
         mShopApi = ShopApi(retrofit)
         mPaymentApi = PaymentApi(retrofit)
+        mPointApi = PointApi(retrofit)
     }
 
     companion object {
@@ -84,8 +86,8 @@ class AppApiHelper {
 
     // 서버 로그인 요청
     fun serverLogin(
-        req: LoginDTO.LoginReq,
-        onFinishApiListener: OnFinishApiListener<LoginDTO.LoginRes>
+            req: LoginDTO.LoginReq,
+            onFinishApiListener: OnFinishApiListener<LoginDTO.LoginRes>
     ) {
         mLoginApi!!.login(req, onFinishApiListener)
     }
@@ -96,8 +98,8 @@ class AppApiHelper {
 
     // 카카오 간편 로그인 요청
     fun kakaoLogin(
-        context: Context?,
-        onFinishApiListener: OnFinishApiListener<LoginDTO.KakaoLoginRes>
+            context: Context?,
+            onFinishApiListener: OnFinishApiListener<LoginDTO.KakaoLoginRes>
     ) {
 
         // 카카오 로그인 콜백 함수 정의
@@ -109,7 +111,7 @@ class AppApiHelper {
                     Log.d("API", "oAuth is available")
 
                     // 카카오 로그인 사용자의 uid받아 서버에 보내 회원인지 확인
-                    UserApiClient.instance.me( true) { user: com.kakao.sdk.user.model.User?, throwable: Throwable? ->
+                    UserApiClient.instance.me(true) { user: com.kakao.sdk.user.model.User?, throwable: Throwable? ->
 
                         // 카카오 유저가 정상적으로 있을 경우
                         if (user != null) {
@@ -140,16 +142,13 @@ class AppApiHelper {
 
     // 네이버 간편 로그인 요청
     fun naverLogin(
-        context: Context?,
-        res: Resources,
-        onFinishApiListener: OnFinishApiListener<LoginDTO.NaverLoginRes>
+            context: Context?,
+            res: Resources,
+            onFinishApiListener: OnFinishApiListener<LoginDTO.NaverLoginRes>
     ) {
         val oAuthLogin = OAuthLogin.getInstance()
         oAuthLogin.init(
-            context
-            , res.getString(R.string.naver_client_id)
-            , res.getString(R.string.naver_client_secret)
-            , res.getString(R.string.naver_client_name)
+                context, res.getString(R.string.naver_client_id), res.getString(R.string.naver_client_secret), res.getString(R.string.naver_client_name)
         )
         @SuppressLint("HandlerLeak") val oAuthLoginHandler: OAuthLoginHandler =
             object: OAuthLoginHandler() {
@@ -159,9 +158,9 @@ class AppApiHelper {
                             override fun run() {
                                 val accessToken = oAuthLogin.getAccessToken(context)
                                 val naverLoginData = oAuthLogin.requestApi(
-                                    context,
-                                    accessToken,
-                                    "https://openapi.naver.com/v1/nid/me"
+                                        context,
+                                        accessToken,
+                                        "https://openapi.naver.com/v1/nid/me"
                                 )
                                 try {
                                     val jsonResult =
@@ -174,15 +173,15 @@ class AppApiHelper {
                                         gender = "M"
                                     }
                                     onFinishApiListener.onSuccess(
-                                        LoginDTO.NaverLoginRes(
-                                            jsonResult.getString("id"),
-                                            jsonResult.getString("birthyear") + jsonResult.getString(
-                                                "birthday"
-                                            ).replace("-", ""),
-                                            gender,
-                                            jsonResult.getString("email"),
-                                            jsonResult.getString("mobile").replace("-", "")
-                                        )
+                                            LoginDTO.NaverLoginRes(
+                                                    jsonResult.getString("id"),
+                                                    jsonResult.getString("birthyear") + jsonResult.getString(
+                                                            "birthday"
+                                                    ).replace("-", ""),
+                                                    gender,
+                                                    jsonResult.getString("email"),
+                                                    jsonResult.getString("mobile").replace("-", "")
+                                            )
                                     )
                                 } catch (e: JSONException) {
                                     e.printStackTrace()
@@ -220,7 +219,7 @@ class AppApiHelper {
     }
 
     fun updateMenuName(menuCode: Int, menuName: String, onFinishApiListener: OnFinishApiListener<Status>) {
-        mMenuApi.updateMenuName(menuCode , menuName, onFinishApiListener)
+        mMenuApi.updateMenuName(menuCode, menuName, onFinishApiListener)
     }
 
     fun updateMenuPrice(menuCode: Int, menuPrice: Int, onFinishApiListener: OnFinishApiListener<Status>) {
@@ -275,5 +274,9 @@ class AppApiHelper {
 
     fun cancel(req: PaymentModel, onFinishApiListener: OnFinishApiListener<Status>) {
         mPaymentApi.cancel(req, onFinishApiListener)
+    }
+
+    fun getCurrentPoint(id: String, onFinishApiListener: OnFinishApiListener<GetCurrentRes>) {
+        mPointApi.getCurrentPoint(id, onFinishApiListener)
     }
 }
