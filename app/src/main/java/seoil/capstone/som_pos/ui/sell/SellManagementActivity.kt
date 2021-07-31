@@ -27,6 +27,7 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
     private var mShopId: String? = null
     private var mApp: GlobalApplication? = null
     private var mTotalPrice: Int = 0
+    private var mUserAvailablePoint: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +107,58 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         finish()
     }
 
+    override fun setCurrentPoint(point: Int) {
+        mUserAvailablePoint = point
+
+        if (mAlertDialog != null) {
+
+            mAlertDialog!!.dismiss()
+        }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_sell_use_point, null, false)
+
+        val textViewPoint = view.findViewById<TextView>(R.id.textViewCurrentPoint)
+        val editTextPoint = view.findViewById<EditText>(R.id.editTextGetPoint)
+
+        textViewPoint.text = mUserAvailablePoint.toString()
+
+        val btnUsePointSubmit = view.findViewById<Button>(R.id.btnUsePointSubmit)
+        btnUsePointSubmit.setOnClickListener {
+
+            if (!mPresenter!!.isTextSet(editTextPoint.text.toString())) {
+
+                editTextPoint.error = "포인트를 입력해주세요"
+            } else if (!mPresenter!!.isNumeric(editTextPoint.text.toString())) {
+
+                editTextPoint.error = "숫자만 입력해주세요"
+            } else if (!mPresenter!!.checkPoint(editTextPoint.text.toString().toInt(), mUserAvailablePoint)) {
+
+                editTextPoint.error = "최대 사용 포인트 값 이하로 입력해주세요"
+            } else {
+
+                val inputPoint = editTextPoint.text.toString().toInt()
+
+                mPresenter!!.pay(
+                        PaymentModel(
+                                -1,
+                                "",
+                                "",
+                                mShopId,
+                                mPresenter!!.getTotalIngredients(mMenuData, mSellAdapter!!.getCountData()),
+                                inputPoint * -1,
+                                mTotalPrice - inputPoint
+                        )
+                )
+                mAlertDialog!!.dismiss()
+            }
+        }
+
+        builder.setView(view)
+        mAlertDialog = builder.create()
+        mAlertDialog!!.show()
+    }
+
 
     override fun showProgress() {
 
@@ -171,6 +224,20 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
                             )
                     )
                     mAlertDialog!!.dismiss()
+                }
+
+                val btnUsePoint: Button = view.findViewById(R.id.btnGetUserIdUsePoint)
+
+                btnUsePoint.setOnClickListener {
+
+                    if (!mPresenter!!.isTextSet(editTextId.text.toString())) {
+
+                        editTextId.error = "아이디를 입력해주세요"
+                        editTextId.requestFocus()
+                    } else {
+
+                        mPresenter!!.getCurrentPoint(editTextId.text.toString())
+                    }
                 }
 
                 val btnSubmit: Button = view.findViewById(R.id.btnGetUserIdSubmit)
