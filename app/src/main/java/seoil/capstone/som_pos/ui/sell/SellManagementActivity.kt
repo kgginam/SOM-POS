@@ -129,12 +129,19 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
             if (!mPresenter!!.isTextSet(editTextPoint.text.toString())) {
 
                 editTextPoint.error = "포인트를 입력해주세요"
+                editTextPoint.requestFocus()
             } else if (!mPresenter!!.isNumeric(editTextPoint.text.toString())) {
 
                 editTextPoint.error = "숫자만 입력해주세요"
+                editTextPoint.requestFocus()
             } else if (!mPresenter!!.checkPoint(editTextPoint.text.toString().toInt(), mUserAvailablePoint)) {
 
                 editTextPoint.error = "최대 사용 포인트 값 이하로 입력해주세요"
+                editTextPoint.requestFocus()
+            } else if (!mPresenter!!.checkPoint(editTextPoint.text.toString().toInt(), mTotalPrice)) {
+
+                editTextPoint.error = "구매 가격 이하로 입력해주세요"
+                editTextPoint.requestFocus()
             } else {
 
                 val inputPoint = editTextPoint.text.toString().toInt()
