@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="SOM"
+        android:text="SOM-POS"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/textLayoutLoginId"
         app:layout_constraintEnd_toEndOf="parent"
