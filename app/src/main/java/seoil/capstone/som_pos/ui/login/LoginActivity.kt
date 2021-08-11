@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -96,6 +97,7 @@ class LoginActivity: AppCompatActivity(), LoginContract.View, View.OnClickListen
                 mEditTextPw!!.requestFocus()
                 Utility.instance()?.activateKeyboard(this)
             } else {
+                showProgress()
                 mPresenter!!.serverLogin(
                         mEditTextId!!.text.toString(),
                         mEditTextPw!!.text.toString(),
@@ -175,11 +177,11 @@ class LoginActivity: AppCompatActivity(), LoginContract.View, View.OnClickListen
     }
 
     override fun showProgress() {
-        TODO("Not yet implemented")
+        window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     override fun hideProgress() {
-        TODO("Not yet implemented")
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     override fun showDialog(msg: String?) {}

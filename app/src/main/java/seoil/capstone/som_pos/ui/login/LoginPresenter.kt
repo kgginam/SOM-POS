@@ -67,8 +67,14 @@ class LoginPresenter : LoginContract.Presenter {
                         // 로그인 성공했으므로 MainActivity로 이동하도록 설정
                         intent.component = ComponentName(context!!, MainActivity::class.java)
                         intent.putExtra("data", bundle)
-                        view!!.setUserData(id, t.code)
-                        view!!.toMain(intent)
+                        if (t.code.equals("C")) {
+
+                            view!!.loginFail(5)
+                        } else {
+
+                            view!!.setUserData(id, t.code)
+                            view!!.toMain(intent)
+                        }
                     } else if (statusCode == LoginApi.NEW_USER) {
 
                     } else {
@@ -76,12 +82,14 @@ class LoginPresenter : LoginContract.Presenter {
                         // 로그인 실패 에러 코드 전송
                         view!!.loginFail(statusCode)
                     }
+                    view!!.hideProgress()
                 }
 
                 override fun onFailure(t: Throwable?) {
 
                     // som rest api연결 실패 예외처리
                     view!!.showToast("Login Fail : $t")
+                    view!!.hideProgress()
                 }
             }
         } else {
