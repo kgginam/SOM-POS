@@ -169,6 +169,7 @@ class SellManagementPresenter: SellManagementContract.Presenter{
                     }
                 }
 
+        mView!!.showProgress()
         mInteractor!!.getMenuInfo(shopId, callback)
     }
 
@@ -248,7 +249,7 @@ class SellManagementPresenter: SellManagementContract.Presenter{
 
                             PointApi.SUCCESS -> {
 
-                                mView!!.setCurrentPoint(t.point)
+                                mView!!.setCurrentPoint(t.point, userId)
                             }
 
                             PointApi.ERROR_NONE_DATA -> {
