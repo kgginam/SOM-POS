@@ -13,7 +13,7 @@ interface SellManagementContract {
         fun initTotalPrice(countList: ArrayList<Int>)
         fun setStock(stockList: ArrayList<DataModel.StockData>)
         fun finishActivity(msg: String)
-        fun setCurrentPoint(point: Int)
+        fun setCurrentPoint(point: Int, userId: String)
     }
 
     interface Presenter: BaseContract.Presenter<View> {

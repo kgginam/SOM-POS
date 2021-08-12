@@ -3,6 +3,7 @@ package seoil.capstone.som_pos.ui.sell
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -52,7 +53,6 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         mStockData = ArrayList()
 
         mPresenter!!.getMenuInfo(mShopId!!)
-        mPresenter!!.getStock(mShopId!!)
     }
 
     override fun onDestroy() {
@@ -65,6 +65,7 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
     override fun setMenuInfo(menuList: ArrayList<DataModel.MenuData>) {
         mMenuData = menuList
+        mPresenter!!.getStock(mShopId!!)
         mSellAdapter!!.setData(mMenuData)
     }
 
@@ -100,6 +101,8 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         }
 
         mSellAdapter!!.setMenuMaxData(menuMaxCount)
+
+        hideProgress()
     }
 
     override fun finishActivity(msg: String) {
@@ -107,7 +110,7 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
         finish()
     }
 
-    override fun setCurrentPoint(point: Int) {
+    override fun setCurrentPoint(point: Int, userId: String) {
         mUserAvailablePoint = point
 
         if (mAlertDialog != null) {
@@ -150,7 +153,7 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
                         PaymentModel(
                                 -1,
                                 "",
-                                "",
+                                userId,
                                 mShopId,
                                 mPresenter!!.getTotalIngredients(mMenuData, mSellAdapter!!.getCountData()),
                                 inputPoint * -1,
@@ -168,11 +171,11 @@ class SellManagementActivity:AppCompatActivity(), SellManagementContract.View{
 
 
     override fun showProgress() {
-
+        window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     override fun hideProgress() {
-
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     override fun showDialog(msg: String?) {
