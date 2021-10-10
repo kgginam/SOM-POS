@@ -88,6 +88,26 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         mTabLayout!!.addTab(mTabLayout!!.newTab().setText("재고"), SELECTED_STOCK, false)
     }
 
+    override fun onResume() {
+
+        if (mJob == null) {
+
+            initCoroutine()
+        }
+
+        super.onResume()
+    }
+
+    override fun onPause() {
+
+        if (mJob != null) {
+
+            mJob!!.cancel()
+            mJob = null
+        }
+
+        super.onPause()
+    }
 
     override fun onDestroy() {
         mPresenter!!.releaseView()
@@ -97,6 +117,7 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         if (mJob != null) {
 
             mJob!!.cancel()
+            mJob = null
         }
         super.onDestroy()
     }
