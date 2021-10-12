@@ -114,11 +114,6 @@ class MenuManagementActivity: AppCompatActivity(), MenuManagementContract.View {
         mPresenter!!.releaseInteractor()
         mPresenter = null
 
-        if (mJob != null) {
-
-            mJob!!.cancel()
-            mJob = null
-        }
         super.onDestroy()
     }
 
